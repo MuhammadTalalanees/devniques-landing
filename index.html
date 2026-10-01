@@ -162,6 +162,13 @@ footer{border-top:1px solid var(--line);background:rgba(6,14,36,.55);backdrop-fi
   .foot-grid{grid-template-columns:1fr}
   .cta-band{padding:60px 24px}
   .vid-banner{aspect-ratio:16/8}
+  /* mobile perf: kill the expensive paint work so the page stays smooth */
+  #fx{display:none}
+  .bg-spin{animation:none;filter:none;opacity:.55}
+  .blob{animation:none!important;filter:blur(28px);opacity:.42}
+  .nav{background:rgba(8,18,46,.96);backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .card{background:rgba(16,34,76,.97);backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+  .modal-overlay{background:rgba(2,6,20,.94);backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 }
 @media(prefers-reduced-motion:reduce){
   .marquee-track,.blob,.bg-spin,.hero-grid-bg,.hero h1 .accent,.btn::before,.nav::after,.cta-band::after,.brand img{animation:none!important}
@@ -211,7 +218,7 @@ body.ready .hero h1 .w>span{transform:none}
 /* ===== PRODUCT CARD (from code.html) inside the 3D slider ===== */
 .p-card{display:flex;flex-direction:column;background:var(--bg-card);border:1px solid rgba(99,149,255,.16);border-radius:24px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
 .p-card:hover{border-color:var(--border-glow);box-shadow:0 22px 60px rgba(0,160,255,.3)}
-.prod-visual{position:relative;height:210px;overflow:hidden;background:#091436;flex:none}
+.prod-visual{position:relative;height:auto;aspect-ratio:16/9;overflow:hidden;background:#091436;flex:none}
 .prod-visual .pv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .prod-banner-gradient{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(14,30,80,.86),rgba(4,9,28,.92));transition:background .5s,transform .5s}
 .p-card:hover .prod-banner-gradient{background:linear-gradient(135deg,rgba(14,30,80,.05),rgba(4,9,28,.25));transform:scale(1.04)}
@@ -1207,17 +1214,18 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService
   measure(); layout();
   requestAnimationFrame(ts => { frame._l = ts; requestAnimationFrame(frame); });
 })();
-// Section banner videos: play on hover only (touch: while in view)
+// Section banner videos: keep looping whenever visible (resilient retry if a play gets interrupted)
 (function(){
-  const vb=document.querySelectorAll('.vid-banner');
-  if (matchMedia('(hover:hover)').matches) {
-    vb.forEach(b => { const v=b.querySelector('video');
-      b.addEventListener('pointerenter',()=>v.play().catch(()=>{}));
-      b.addEventListener('pointerleave',()=>v.pause()); });
-  } else {
-    const vio = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(()=>{}) : e.target.pause()), {threshold:.25});
-    vb.forEach(b => vio.observe(b.querySelector('video')));
-  }
+  const vids=[...document.querySelectorAll('.vid-banner video')];
+  vids.forEach(v=>{v.loop=true;v.muted=true;v.setAttribute('playsinline','');});
+  const vis=v=>{const r=v.getBoundingClientRect();return r.bottom>40&&r.top<innerHeight-40;};
+  setInterval(()=>{
+    if(document.hidden)return;
+    vids.forEach(v=>{
+      if(vis(v)){if(v.paused)v.play().catch(()=>{});}
+      else if(!v.paused)v.pause();
+    });
+  },1000);
 })();
 
 // ===== ADVANCED LAYER =====
@@ -1265,6 +1273,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService
   const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
   document.querySelectorAll('section[id]').forEach(x=>spy.observe(x));
   if(RM)return;
+  if(matchMedia('(hover:none)').matches||innerWidth<820){cv.style.display='none';return;}
   let W,H,P=[],B=[],mx=-999,my=-999;
   function size(){const dp=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*dp;cv.height=H*dp;cx.setTransform(dp,0,0,dp,0,0);
     P=Array.from({length:Math.min(64,Math.round(W*H/22000))},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,d:.05+Math.random()*.2,yy:0}))}
