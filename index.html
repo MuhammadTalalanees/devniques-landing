@@ -1218,15 +1218,16 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService
 // Section banner videos: keep looping whenever visible (resilient retry if a play gets interrupted)
 (function(){
   const vids=[...document.querySelectorAll('.vid-banner video')];
-  vids.forEach(v=>{v.loop=true;v.muted=true;v.setAttribute('playsinline','');});
-  const vis=v=>{const r=v.getBoundingClientRect();return r.bottom>40&&r.top<innerHeight-40;};
-  setInterval(()=>{
-    if(document.hidden)return;
-    vids.forEach(v=>{
-      if(vis(v)){if(v.paused)v.play().catch(()=>{});}
-      else if(!v.paused)v.pause();
-    });
-  },1000);
+  vids.forEach(v=>{
+    v.loop=true;v.muted=true;v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');
+    let visible=false;
+    const tryPlay=()=>{ if(visible&&v.paused&&!document.hidden){ const p=v.play(); if(p&&p.catch)p.catch(()=>{}); } };
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(es=>es.forEach(e=>{ visible=e.isIntersecting; if(visible) tryPlay(); else if(!v.paused) v.pause(); }),{threshold:.2}).observe(v);
+    } else { visible=true; tryPlay(); }
+    v.addEventListener('pause',()=>setTimeout(tryPlay,400));
+    setInterval(tryPlay,1500);
+  });
 })();
 
 // ===== ADVANCED LAYER =====
@@ -1242,9 +1243,10 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService
   const ld=document.getElementById('loader'),t0=performance.now();
   let started=false;function go(){if(started)return;started=true;const w=Math.max(0,(RM?0:1500)-(performance.now()-t0));setTimeout(()=>{ld.classList.add('out');document.body.classList.add('ready');setTimeout(()=>ld.classList.add('gone'),1000)},w)}
   document.readyState==='complete'?go():addEventListener('load',go);setTimeout(go,2200);
-  // scroll progress + parallax var
+  // scroll progress + parallax var (scoped to .bg-dots + rAF-throttled: setting it on body forced a full-page style recalc on every scroll tick)
   const pg=document.getElementById('progress');
-  function onS(){const m=document.documentElement.scrollHeight-innerHeight;pg.style.transform='scaleX('+(m>0?scrollY/m:0)+')';document.body.style.setProperty('--sy',scrollY)}
+  const bgDots=document.querySelector('.bg-dots');let syQueued=false;
+  function onS(){const m=document.documentElement.scrollHeight-innerHeight;pg.style.transform='scaleX('+(m>0?scrollY/m:0)+')';if(bgDots&&!syQueued){syQueued=true;requestAnimationFrame(()=>{syQueued=false;bgDots.style.setProperty('--sy',scrollY);});}}
   addEventListener('scroll',onS,{passive:true});onS();
   // cursor glow + card spotlight
   const glow=document.getElementById('glow');let gx=innerWidth/2,gy=200,tx=gx,ty=gy;
