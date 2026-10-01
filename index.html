@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devniques – Smart Technology Solutions</title>
+<meta name="description" content="We deliver innovative digital, cloud, and software solutions designed to streamline operations, enhance customer experiences, and accelerate business growth.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="logo-dark.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cyan:#00f0ff;--neon-gradient:linear-gradient(135deg,#00f0ff 0%,#2b7fff 50%,#8a2be2 100%);--bg-card:rgba(13,25,62,.92);--border-glow:rgba(99,179,255,.45);
+  --bg:#0a1633; --ink:#ffffff; --muted:#b9c8e4; --line:rgba(140,180,255,.14);
+  --blue:#2f7ff7; --blue-dark:#0d55c4; --blue-soft:rgba(47,127,247,.16);
+  --accent:#6aa5ff;
+  --radius:18px; --shadow:0 12px 40px rgba(0,0,0,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);background:linear-gradient(135deg,#081026 0%,#0a1633 45%,#12306e 110%) fixed;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* ===== Animated page background (whole page) ===== */
+.bg-anim{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bg-spin{position:absolute;left:50%;top:38%;width:132vmax;height:132vmax;transform:translate(-50%,-50%);background:conic-gradient(from 0deg,transparent 0deg,rgba(94,160,255,.08) 28deg,transparent 64deg,transparent 178deg,rgba(20,110,245,.10) 208deg,transparent 246deg);animation:spinSlow 48s linear infinite;filter:blur(12px)}
+@keyframes spinSlow{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.blob{position:absolute;border-radius:50%;filter:blur(64px);opacity:.55;will-change:transform}
+.blob.b1{width:640px;height:640px;left:-160px;top:-120px;background:radial-gradient(circle,rgba(20,110,245,.38),transparent 70%);animation:drift1 38s ease-in-out infinite alternate}
+.blob.b2{width:560px;height:560px;right:-140px;top:32%;background:radial-gradient(circle,rgba(47,127,247,.30),transparent 70%);animation:drift2 46s ease-in-out infinite alternate}
+.blob.b3{width:700px;height:700px;left:22%;bottom:-260px;background:radial-gradient(circle,rgba(64,150,255,.26),transparent 70%);animation:drift3 52s ease-in-out infinite alternate}
+.blob.b4{width:420px;height:420px;right:18%;top:-120px;background:radial-gradient(circle,rgba(20,110,245,.24),transparent 70%);animation:drift1 60s ease-in-out infinite alternate-reverse}
+@keyframes drift1{from{transform:translate(0,0) scale(1)}to{transform:translate(120px,80px) scale(1.15)}}
+@keyframes drift2{from{transform:translate(0,0) scale(1.1)}to{transform:translate(-140px,-70px) scale(.95)}}
+@keyframes drift3{from{transform:translate(0,0) scale(1)}to{transform:translate(-100px,90px) scale(1.12)}}
+.bg-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(140,190,255,.13) 1.2px,transparent 1.2px);background-size:34px 34px;mask-image:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent)}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+/* ===== NAV (animated) ===== */
+.nav{position:sticky;top:0;z-index:100;background:rgba(8,18,46,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .25s,box-shadow .25s;animation:navIn .8s cubic-bezier(.2,.7,.3,1) both}
+@keyframes navIn{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
+.nav::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,transparent,var(--blue),#7db4ff,var(--blue),transparent);background-size:220% 100%;animation:navShine 5s linear infinite;opacity:0;transition:opacity .3s}
+.nav.scrolled{border-bottom-color:var(--line);box-shadow:0 4px 24px rgba(0,0,0,.4)}
+.nav.scrolled::after{opacity:1}
+@keyframes navShine{from{background-position:200% 0}to{background-position:-20% 0}}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;position:relative}
+.brand img{height:38px;width:auto;animation:logoFloat 5s ease-in-out infinite}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
+.nav-links{display:flex;align-items:center;gap:30px;list-style:none;position:absolute;left:50%;transform:translateX(-50%);margin:0;padding:0;white-space:nowrap}
+.nav-cta{margin-left:auto;flex-shrink:0}
+.nav-cta-li.mob{display:none}
+.nav-links a{position:relative;font-size:14.5px;font-weight:500;color:#d7e3fa;transition:color .2s;padding:6px 0}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent),#bcd6ff);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.2,.7,.3,1)}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;font-weight:600;font-size:15px;padding:12px 26px;border-radius:999px;border:none;cursor:pointer;transition:transform .2s,background .2s,box-shadow .2s;box-shadow:0 8px 20px rgba(20,110,245,.28)}
+.btn::before{content:"";position:absolute;top:0;bottom:0;width:60px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);left:-80px;transform:skewX(-18deg);animation:btnShine 3.6s ease-in-out infinite}
+@keyframes btnShine{0%,55%{left:-80px}90%,100%{left:130%}}
+.btn:hover{background:var(--blue-dark);transform:translateY(-2px)}
+.btn-sm{padding:10px 22px;font-size:14px}
+.btn-outline{background:rgba(255,255,255,.06);color:#fff;border:1.5px solid rgba(255,255,255,.28);box-shadow:none}
+.btn-outline::before{display:none}
+.btn-outline:hover{border-color:var(--accent);color:#fff;background:rgba(47,127,247,.22)}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+/* ===== HERO ===== */
+.hero{position:relative;text-align:center;padding:110px 24px 90px;overflow:hidden}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(120,175,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(120,175,255,.09) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 75%);opacity:.6;pointer-events:none;animation:gridPan 24s linear infinite}
+@keyframes gridPan{from{background-position:0 0}to{background-position:56px 56px}}
+.hero-inner{position:relative;max-width:860px;margin:0 auto}
+.eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:22px}
+.hero h1{font-size:clamp(42px,6.4vw,76px);font-weight:800;letter-spacing:-2.5px;line-height:1.04;margin-bottom:24px}
+.hero h1 .accent{background:linear-gradient(100deg,var(--blue) 20%,#5ea0ff 50%,var(--blue) 80%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:accentFlow 6s linear infinite}
+@keyframes accentFlow{to{background-position:200% center}}
+.hero p.sub{font-size:clamp(16px,2vw,19px);color:var(--muted);max-width:680px;margin:0 auto 38px;line-height:1.65}
+.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+/* ===== MARQUEE ===== */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.03);overflow:hidden;padding:16px 0;user-select:none}
+.marquee-track{display:flex;gap:56px;width:max-content;animation:scroll 30s linear infinite}
+.marquee a{transition:color .2s}.marquee a:hover{color:#fff}.marquee a{font-size:13.5px;font-weight:700;letter-spacing:2.5px;color:#93a9d4;white-space:nowrap}
+@keyframes scroll{to{transform:translateX(-50%)}}
+/* ===== SECTIONS ===== */
+section{padding:96px 0}
+.sec-head{text-align:center;max-width:720px;margin:0 auto 54px}
+.sec-head h2{font-size:clamp(30px,4vw,44px);font-weight:800;letter-spacing:-1.5px;line-height:1.15;margin:14px 0 16px}
+.sec-head p{color:var(--muted);font-size:17px}
+/* ===== 3D PRODUCT RIVER (Webflow-style slides) ===== */
+.drag-hint{display:flex;align-items:center;justify-content:center;gap:10px;color:#8fa6cf;font-size:13.5px;font-weight:600;letter-spacing:1px;margin:-28px 0 26px;text-transform:uppercase}
+.drag-hint svg{animation:nudge 2.2s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(-4px)}50%{transform:translateX(4px)}}
+.stage-3d{position:relative;height:600px;perspective:1500px;overflow:hidden;cursor:grab;touch-action:pan-y}
+.stage-3d.dragging{cursor:grabbing}
+.stage-3d::before,.stage-3d::after{content:"";position:absolute;top:0;bottom:0;width:120px;z-index:5;pointer-events:none}
+.stage-3d::before{left:0;background:linear-gradient(90deg,#0a1734,transparent)}
+.stage-3d::after{right:0;background:linear-gradient(-90deg,#0a1734,transparent)}
+.river{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none}
+.p-card{position:absolute;left:50%;top:46%;width:400px;background:linear-gradient(180deg,rgba(22,44,96,.92),rgba(10,24,60,.94));border:1px solid rgba(140,180,255,.18);border-radius:var(--radius);overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.45);user-select:none;-webkit-user-drag:none;will-change:transform,opacity}
+.p-card:hover{box-shadow:0 24px 70px rgba(20,110,245,.35);border-color:rgba(140,180,255,.45)}
+.p-card{cursor:pointer}
+.p-media{aspect-ratio:16/10;background:#0e1e42;overflow:hidden;pointer-events:none}
+.p-media video{width:100%;height:100%;object-fit:cover}
+.p-body{padding:24px 24px 26px}
+.p-body h3{font-size:21px;font-weight:700;letter-spacing:-.5px;margin-bottom:10px}
+.p-body p{color:var(--muted);font-size:14.5px;margin-bottom:16px;min-height:66px}
+.learn{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:600;font-size:15px}
+.learn svg{transition:transform .2s}
+.p-card:hover .learn svg{transform:translateX(5px)}
+.car-nav{display:flex;gap:12px;justify-content:center;margin-top:6px}
+.car-btn{width:52px;height:52px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,.35);transition:border-color .2s,color .2s,transform .2s}
+.car-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+/* ===== VIDEO BANNERS (company sections) ===== */
+.vid-banner{border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(20,110,245,.14);border:1px solid var(--line);margin:-10px 0 46px;aspect-ratio:21/7.2;background:#0e1e42}
+.vid-banner video{width:100%;height:100%;object-fit:cover;display:block}
+/* ===== GRIDS ===== */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.card{background:rgba(255,255,255,.045);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(140,180,255,.14);border-radius:var(--radius);padding:32px 28px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(0,0,0,.4);border-color:rgba(140,180,255,.38)}
+.card h3{font-size:18.5px;font-weight:700;letter-spacing:-.4px;margin-bottom:12px}
+.card h3 a:hover{color:var(--accent)}
+.card p{color:var(--muted);font-size:15px}
+.card .dot{width:11px;height:11px;border-radius:50%;background:var(--blue);margin-bottom:20px;box-shadow:0 0 0 6px rgba(20,110,245,.12)}
+/* ===== CTA ===== */
+.cta-band{background:linear-gradient(135deg,#0d55c4 0%,#146ef5 55%,#5ea0ff 130%);border:1px solid rgba(255,255,255,.25);border-radius:28px;padding:80px 40px;text-align:center;color:#fff;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(20,110,245,.35)}
+.cta-band::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 260px at 50% 0%,rgba(255,255,255,.22),transparent 65%)}
+.cta-band::after{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent 0deg,rgba(255,255,255,.06) 40deg,transparent 80deg);animation:ctaSpin 14s linear infinite}
+@keyframes ctaSpin{to{transform:rotate(360deg)}}
+.cta-band h2{font-size:clamp(30px,4vw,46px);font-weight:800;letter-spacing:-1.5px;margin-bottom:16px;position:relative;z-index:1}
+.cta-band p{color:#e6efff;font-size:17px;max-width:560px;margin:0 auto 36px;position:relative;z-index:1}
+.cta-band .btn{background:#fff;color:#0a1633;box-shadow:0 10px 28px rgba(0,0,0,.25);position:relative;z-index:1}
+.cta-band .btn::before{display:none}
+.cta-band .btn:hover{background:#eef4ff}
+/* ===== FOOTER ===== */
+footer{border-top:1px solid var(--line);background:rgba(6,14,36,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:70px 0 34px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:50px}
+.foot-grid img{height:40px;width:auto;margin-bottom:18px}
+.foot-grid p{color:var(--muted);font-size:14.5px}
+.foot-grid h4{font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;color:var(--ink)}
+.foot-grid ul{list-style:none}
+.foot-grid ul li{margin-bottom:12px}
+.foot-grid ul a{color:var(--muted);font-size:14.5px;transition:color .2s}
+.foot-grid ul a:hover{color:var(--blue)}
+.contact-line{color:var(--muted);font-size:14.5px;margin-bottom:12px;line-height:1.7}
+.foot-bottom{border-top:1px solid var(--line);padding-top:26px;text-align:center;color:#7e93bd;font-size:13.5px}
+/* ===== REVEAL ===== */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(2,1fr)}.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  .nav-links{display:none;position:absolute;top:68px;left:0;right:0;transform:none;background:rgba(8,18,46,.97);flex-direction:column;align-items:flex-start;padding:20px 24px 26px;gap:18px;border-bottom:1px solid var(--line);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+  .nav-links.open{display:flex}
+  .nav-cta{display:none}
+  .nav-cta-li.mob{display:list-item}
+  .nav-cta-li{width:100%}.nav-cta-li .btn{width:100%;justify-content:center}
+  .burger{display:block}
+  .grid-3,.grid-4{grid-template-columns:1fr}
+  .stage-3d{height:520px}
+  section{padding:70px 0}
+  .hero{padding:80px 20px 64px}
+  .foot-grid{grid-template-columns:1fr}
+  .cta-band{padding:60px 24px}
+  .vid-banner{aspect-ratio:16/8}
+}
+@media(prefers-reduced-motion:reduce){
+  .marquee-track,.blob,.bg-spin,.hero-grid-bg,.hero h1 .accent,.btn::before,.nav::after,.cta-band::after,.brand img{animation:none!important}
+  .rv{opacity:1;transform:none}
+}
+
+/* ===== ADVANCED LAYER ===== */
+#loader{position:fixed;inset:0;z-index:9999;background:#050c20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:clip-path .9s cubic-bezier(.76,0,.24,1);clip-path:inset(0 0 0 0);animation:ldFail .1s 4s forwards}
+#loader.out{clip-path:inset(0 0 100% 0)}
+#loader.gone{display:none}
+@keyframes ldFail{to{visibility:hidden}}
+#loader img{height:54px;animation:ldPulse 1.6s ease-in-out infinite}
+@keyframes ldPulse{50%{transform:scale(1.06);filter:drop-shadow(0 0 18px rgba(94,160,255,.7))}}
+.ld-bar{width:220px;height:3px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
+.ld-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),#9cc4ff);animation:ldFill 1.5s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes ldFill{to{width:100%}}
+#loader small{color:#8fa6cf;font-size:12px;letter-spacing:4px;text-transform:uppercase}
+#progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:200;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,var(--blue),#9cc4ff,#fff);box-shadow:0 0 12px var(--blue)}
+#glow{position:fixed;left:0;top:0;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;background:radial-gradient(circle,rgba(70,140,255,.16),transparent 65%);pointer-events:none;z-index:-1;will-change:transform}
+.bg-dots{transform:translateY(calc(var(--sy,0) * -.06px))}
+.hero-inner{z-index:2}
+body:not(.ready) .hero .rv{opacity:0!important;transform:translateY(40px)!important}
+.hero .rv:nth-child(2){transition-delay:.15s}.hero .rv:nth-child(4){transition-delay:.45s}.hero .rv:nth-child(5){transition-delay:.6s}
+.hero h1.rv{opacity:1;transform:none}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em}
+.hero h1 .w>span{display:inline-block;transform:translateY(110%) rotate(6deg);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+body.ready .hero h1 .w>span{transform:none}
+.card{--mx:50%;--my:50%;--o:0;background:radial-gradient(380px circle at var(--mx) var(--my),rgba(94,160,255,calc(var(--o) * .2)),transparent 55%),rgba(255,255,255,.045)}
+.card:hover{--o:1}
+.sec-head h2::after{content:"";display:block;width:0;height:3px;margin:18px auto 0;border-radius:3px;background:linear-gradient(90deg,var(--blue),#9cc4ff);transition:width 1s .3s cubic-bezier(.2,.8,.2,1)}
+.sec-head h2.in::after{width:72px}
+.vid-banner{transition:transform .2s ease-out}
+@media(max-width:768px){.chip{display:none}.stats{grid-template-columns:repeat(2,1fr)}#glow{display:none}}
+@media(prefers-reduced-motion:reduce){.chip,.scroll-cue::after,#loader img,.typer i{animation:none!important}.hero h1 .w>span{transform:none;transition:none}#loader{display:none}}
+
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.learn{position:static}.learn::after{content:"";position:absolute;inset:0;z-index:3}
+.p-card a{-webkit-user-drag:none}
+.nav-links a.active{color:var(--accent)}.nav-links a.active::after{transform:scaleX(1)}
+#ring{position:fixed;left:0;top:0;width:38px;height:38px;margin:-19px 0 0 -19px;border:1.5px solid rgba(130,185,255,.7);border-radius:50%;pointer-events:none;z-index:9998;transition:width .25s,height .25s,margin .25s,background .25s,opacity .3s;opacity:0;will-change:transform}
+#ring.on{opacity:1}
+#ring.big{width:66px;height:66px;margin:-33px 0 0 -33px;background:rgba(70,140,255,.14)}
+#dot{position:fixed;left:0;top:0;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:#9cc4ff;pointer-events:none;z-index:9998;opacity:0;will-change:transform}
+#dot.on{opacity:1}
+@media(hover:none){#ring,#dot{display:none}}
+
+/* ===== PRODUCT CARD (from code.html) inside the 3D slider ===== */
+.p-card{display:flex;flex-direction:column;background:var(--bg-card);border:1px solid rgba(99,149,255,.16);border-radius:24px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.p-card:hover{border-color:var(--border-glow);box-shadow:0 22px 60px rgba(0,160,255,.3)}
+.prod-visual{position:relative;height:210px;overflow:hidden;background:#091436;flex:none}
+.prod-visual .pv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.prod-banner-gradient{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(14,30,80,.86),rgba(4,9,28,.92));transition:background .5s,transform .5s}
+.p-card:hover .prod-banner-gradient{background:linear-gradient(135deg,rgba(14,30,80,.05),rgba(4,9,28,.25));transform:scale(1.04)}
+.prod-icon-large{width:80px;height:80px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;box-shadow:0 12px 30px rgba(0,0,0,.4);transition:opacity .35s,transform .35s}
+.p-card:hover .prod-icon-large{opacity:0;transform:scale(.6)}
+.prod-tag{position:absolute;top:16px;right:16px;z-index:2;background:rgba(4,12,35,.8);border:1px solid rgba(0,240,255,.4);color:var(--cyan);font-size:11px;font-weight:700;padding:5px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:1px}
+.prod-body{padding:26px 26px 24px;display:flex;flex-direction:column;flex-grow:1}
+.prod-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.prod-desc{color:var(--muted);font-size:14.5px;line-height:1.6;margin-bottom:18px;min-height:92px}
+.prod-specs{display:flex;flex-wrap:wrap;gap:8px 16px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.spec-chip{font-size:12px;color:#9ebde8;display:flex;align-items:center;gap:6px}.spec-chip i{color:var(--cyan)}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.view-details-btn{color:var(--cyan);font-size:14px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:gap .2s}
+.p-card:hover .view-details-btn{gap:12px}
+.live-demo-pill{font-size:11.5px;color:#82a5dc;background:rgba(255,255,255,.05);padding:4px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.1)}
+.prod-visual::after{content:"";position:absolute;right:14px;bottom:12px;width:38px;height:38px;border-radius:50%;z-index:2;background:rgba(10,22,51,.7) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 6.5v11l9-5.5z'/%3E%3C/svg%3E") 58% 50%/16px no-repeat;border:1.5px solid rgba(255,255,255,.5);transition:opacity .3s,transform .3s;pointer-events:none;opacity:0}
+.p-card:has(.pv):not(:hover) .prod-visual::after{opacity:1}
+.p-card:hover .prod-visual::after{transform:scale(1.4)}
+@media(hover:none){.prod-visual::after{display:none}}
+.pv-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none;transition:opacity .35s}
+.p-card:has(.pv):hover .pv-poster{opacity:0}
+.prod-visual .pv{opacity:0;transition:opacity .45s}
+.prod-visual .pv.playing{opacity:1}
+/* ===== PRODUCT MODAL (same as code.html) ===== */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(2, 6, 20, 0.85);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  opacity:0;
+  pointer-events:none;
+  transition:all 0.3s ease;
+}
+.modal-overlay.active{
+  opacity:1;
+  pointer-events:auto;
+}
+.modal-card{
+  background:linear-gradient(145deg, #0a1738, #050d24);
+  border:1px solid var(--cyan);
+  box-shadow:0 0 60px rgba(0, 240, 255, 0.35);
+  border-radius:28px;
+  max-width:800px;
+  width:100%;
+  max-height:90vh;
+  overflow-y:auto;
+  position:relative;
+  transform:scale(0.92) translateY(20px);
+  transition:all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  padding:36px;
+}
+.modal-overlay.active .modal-card{
+  transform:scale(1) translateY(0);
+}
+.modal-close-btn{
+  position:absolute;
+  top:24px;
+  right:24px;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.18);
+  color:#fff;
+  font-size:18px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all 0.2s;
+}
+.modal-close-btn:hover{
+  background:rgba(255, 50, 80, 0.25);
+  border-color:#ff4757;
+  color:#ff4757;
+  transform:rotate(90deg);
+}
+.modal-header-badge{
+  display:inline-block;
+  font-size:12px;
+  font-weight:700;
+  padding:4px 12px;
+  border-radius:999px;
+  background:rgba(0, 240, 255, 0.15);
+  color:var(--cyan);
+  border:1px solid rgba(0, 240, 255, 0.35);
+  margin-bottom:16px;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+}
+.modal-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:32px;
+  font-weight:800;
+  color:#fff;
+  margin-bottom:12px;
+}
+.modal-summary{
+  font-size:16px;
+  color:#c0d5f8;
+  line-height:1.7;
+  margin-bottom:28px;
+}
+.modal-features-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:16px;
+  margin-bottom:32px;
+}
+.m-feat{
+  background:rgba(255,255,255,0.035);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:14px;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.m-feat i{
+  font-size:18px;
+  color:var(--cyan);
+}
+.m-feat span{
+  font-size:14px;
+  font-weight:600;
+  color:#e4efff;
+}
+.modal-footer{
+  display:flex;
+  gap:16px;
+  justify-content:flex-end;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+
+.modal-overlay{z-index:10000}
+.modal-card{font-family:'Inter',system-ui,sans-serif}
+.m-pri,.m-sec{display:inline-flex;align-items:center;gap:10px;padding:12px 26px;border-radius:999px;font-weight:600;font-size:14.5px;cursor:pointer;color:#fff;transition:all .25s}
+.m-pri{border:none;background:var(--neon-gradient);box-shadow:0 4px 20px rgba(0,180,255,.35)}.m-pri:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,240,255,.55)}
+.m-sec{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18)}.m-sec:hover{background:rgba(0,240,255,.12);border-color:var(--cyan);color:var(--cyan)}
+@media(max-width:768px){.modal-features-grid{grid-template-columns:1fr}.modal-card{padding:24px}.modal-title{font-size:26px}}
+
+/* ===== SECTIONS BELOW PRODUCTS (code.html design) ===== */
+.sec-head .eyebrow{color:var(--cyan)}
+.sec-head h2{font-family:'Space Grotesk',sans-serif;font-weight:700}
+.services-grid{display:grid;gap:24px}
+.services-grid.g4{grid-template-columns:repeat(4,1fr)}.services-grid.g3{grid-template-columns:repeat(3,1fr)}
+.service-card{--mx:50%;--my:50%;--o:0;display:block;color:inherit;background:radial-gradient(380px circle at var(--mx) var(--my),rgba(0,240,255,calc(var(--o) * .13)),transparent 55%),rgba(255,255,255,.035);border:1px solid rgba(99,149,255,.16);border-radius:18px;padding:32px 26px;position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s}
+.service-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--neon-gradient);opacity:0;transition:opacity .3s}
+.service-card:hover{--o:1;transform:translateY(-6px);border-color:var(--border-glow);box-shadow:0 15px 35px rgba(0,0,0,.3)}
+.service-card:hover::before{opacity:1}
+.srv-icon{width:56px;height:56px;border-radius:14px;background:rgba(0,240,255,.1);border:1px solid rgba(0,240,255,.25);display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:22px;margin-bottom:22px;transition:all .3s}
+.service-card:hover .srv-icon{background:var(--neon-gradient);color:#fff;transform:scale(1.1) rotate(6deg);box-shadow:0 0 20px rgba(0,240,255,.4)}
+.srv-title{font-size:19px;font-weight:700;color:#fff;margin-bottom:12px;letter-spacing:-.3px}
+.srv-desc{font-size:14.5px;color:var(--muted);line-height:1.6}
+.srv-go{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-size:13.5px;font-weight:700;color:var(--cyan);transition:gap .2s}
+.service-card:hover .srv-go{gap:13px}
+.service-card[data-svc]{cursor:pointer}
+.modal-svc-icon{width:64px;height:64px;border-radius:16px;background:var(--neon-gradient);display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;margin-bottom:18px;box-shadow:0 0 24px rgba(0,240,255,.35)}
+.benefits-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.benefits-card-list{display:flex;flex-direction:column;gap:16px}
+.b-card{background:rgba(255,255,255,.03);border:1px solid rgba(99,149,255,.16);border-radius:16px;padding:20px 24px;display:flex;gap:20px;align-items:flex-start;transition:all .25s ease}
+.b-card:hover{border-color:var(--cyan);background:rgba(0,240,255,.05);transform:translateX(8px)}
+.b-icon{width:46px;height:46px;border-radius:12px;background:rgba(43,127,255,.15);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.b-content h4{font-size:17px;font-weight:700;color:#fff;margin-bottom:6px}
+.b-content p{font-size:14px;color:var(--muted);line-height:1.55}
+.visual-preview-box{background:linear-gradient(145deg,rgba(16,36,92,.7),rgba(8,18,50,.9));border:1px solid rgba(0,240,255,.3);border-radius:24px;padding:36px;box-shadow:0 30px 60px rgba(0,0,0,.5),inset 0 0 30px rgba(0,240,255,.1);position:relative;overflow:hidden}
+.tech-orbit{width:100%;height:380px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative}
+.orbit-ring{position:absolute;border-radius:50%;border:1px dashed rgba(0,240,255,.25);animation:spinSlow 40s linear infinite}
+.orbit-1{width:260px;height:260px}.orbit-2{width:360px;height:360px;animation-duration:55s;animation-direction:reverse}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+.center-core{width:96px;height:96px;border-radius:50%;background:var(--neon-gradient);display:flex;align-items:center;justify-content:center;box-shadow:0 0 50px rgba(0,240,255,.7);z-index:2;font-size:36px;color:#fff;animation:corePulse 3s infinite ease-in-out}
+@keyframes corePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08);box-shadow:0 0 70px rgba(0,240,255,.9)}}
+.cta-box{background:linear-gradient(135deg,rgba(15,35,95,.9) 0%,rgba(30,80,190,.85) 60%,rgba(138,43,226,.8) 100%);border:1px solid rgba(255,255,255,.25);border-radius:28px;padding:70px 40px;text-align:center;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,140,255,.35)}
+.cta-box h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,4.5vw,52px);font-weight:800;margin-bottom:18px;color:#fff;letter-spacing:-1px}
+.cta-box p{font-size:18px;color:#e1eeff;max-width:620px;margin:0 auto 36px}
+.cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.m-pri.cta-white{background:#fff;color:#0a1738;font-weight:700;box-shadow:0 8px 26px rgba(0,0,0,.25)}
+.m-pri.cta-white:hover{background:#eef4ff;box-shadow:0 12px 34px rgba(0,0,0,.35)}
+footer{border-top:1px solid rgba(99,149,255,.16);background:#020612;padding:80px 0 35px;backdrop-filter:none}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.3fr;gap:40px;margin-bottom:60px}
+.f-brand img{height:40px;width:auto;margin-bottom:18px}
+.f-brand p{color:var(--muted);font-size:14.5px;line-height:1.7;margin-bottom:20px}
+.f-social{display:flex;gap:12px}
+.f-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:var(--cyan);transition:all .25s}
+.f-social a:hover{background:var(--cyan);color:#020612;transform:translateY(-3px)}
+.footer-col h4{color:#fff;font-size:15px;font-weight:700;margin-bottom:20px;letter-spacing:1px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col ul a{color:var(--muted);font-size:14.5px;transition:all .2s;cursor:pointer}
+.footer-col ul a:hover{color:var(--cyan);padding-left:4px}
+.f-contact p{color:var(--muted);font-size:14.5px;margin-bottom:12px;display:flex;align-items:flex-start;gap:10px}
+.f-contact p i{color:var(--cyan);margin-top:5px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:28px;display:flex;justify-content:space-between;align-items:center;color:#6c84aa;font-size:13.5px;flex-wrap:wrap;gap:16px}
+.fb-links{display:flex;gap:22px;flex-wrap:wrap}.fb-links a{color:#6c84aa;transition:color .2s}.fb-links a:hover{color:var(--cyan)}
+@media(max-width:1100px){.services-grid.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:992px){.benefits-wrapper{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}.services-grid.g3{grid-template-columns:1fr}}
+@media(max-width:640px){.services-grid.g4{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.cta-box{padding:50px 22px}.tech-orbit{height:340px}.orbit-2{width:300px;height:300px}.orbit-1{width:220px;height:220px}.footer-bottom{flex-direction:column;align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){.orbit-ring,.center-core{animation:none!important}}
+</style>
+</head>
+<body id="top">
+<div id="loader"><img src="logo-white.png" alt="Devniques"><div class="ld-bar"><i></i></div><small>Smart Technology Solutions</small></div>
+<div id="progress"></div><div id="glow"></div><canvas id="fx" aria-hidden="true"></canvas><div id="ring"></div><div id="dot"></div>
+<div class="bg-anim" aria-hidden="true">
+  <div class="bg-spin"></div>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+  <div class="bg-dots"></div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Devniques home"><img src="logo-white.png" alt="Devniques"></a>
+    <button class="burger" id="burger" aria-label="Menu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#top">Home</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#offer">Services &amp; Products</a></li>
+      <li><a href="#company">Our Company</a></li>
+      <li><a href="https://devniques.com/blog/">Blog</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+      <li class="nav-cta-li mob"><a class="btn btn-sm" href="#cta">Get a Quote</a></li>
+    </ul>
+    <a class="btn btn-sm nav-cta" href="#cta">Get a Quote</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <span class="eyebrow rv">Welcome to Devniques</span>
+    <h1 class="rv">Smart <span class="accent">Technology</span> Solutions</h1>
+    <p class="sub rv">We deliver innovative digital, cloud, and software solutions designed to streamline operations, enhance customer experiences, and accelerate business growth in a rapidly evolving digital world.</p>
+    <div class="hero-cta rv">
+      <a class="btn" href="#cta">Let&rsquo;s Start!</a>
+      <a class="btn btn-outline" href="#products">Discover More</a>
+    </div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track" id="marqueeTrack">
+    <a href="https://devniques.com/digital-commerce-2/">RETAIL APPS</a><a href="https://devniques.com/digital-marketing-and-seo-services/">AI MARKETING</a><a href="https://devniques.com/software-solutions/">SCHOOL MANAGEMENT SYSTEM</a><a href="https://devniques.com/hospital-management/">HOSPITAL MANAGEMENT SYSTEM</a><a href="https://devniques.com/software-solutions/">EPOS</a><a href="https://devniques.com/microsoft-365/">MICROSOFT 365</a><a href="https://devniques.com/erp-crm/">ERP &amp; CRM</a><a href="https://devniques.com/managed-services/">CLOUD HOSTING</a><a href="https://devniques.com/managed-services/">VDC / VPS</a>
+  </div>
+</div>
+
+<section id="products">
+  <div class="wrap sec-head">
+    <span class="eyebrow rv">Product Showcase</span>
+    <h2 class="rv">Our Products</h2>
+    <p class="rv">Powerful products and platforms built to solve real business challenges &mdash; ready to deploy, easy to scale, and designed around your workflows.</p>
+  </div>
+  <div class="drag-hint rv">
+    <svg width="26" height="14" viewBox="0 0 26 14" fill="none" stroke="#8fa6cf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 7h24M18 1l6 6-6 6"/></svg>
+    Drag to explore
+    <svg width="26" height="14" viewBox="0 0 26 14" fill="none" stroke="#8fa6cf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1)"><path d="M1 7h24M18 1l6 6-6 6"/></svg>
+  </div>
+   <div class="wrap car-nav rv">
+    <button class="car-btn" id="carPrev" aria-label="Previous products"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+    <button class="car-btn" id="carNext" aria-label="Next products"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+  <div class="stage-3d rv" id="stage3d">
+    <div class="river" id="river">
+      <article class="p-card" data-key="BuzzFlow">
+        <div class="prod-visual"><video class="pv" muted loop playsinline preload="metadata" poster="videos/buzzflow-poster.jpg" src="videos/buzzflo.mp4"></video>
+          <img class="pv-poster" src="videos/buzzflow-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Enterprise SaaS</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title">
+            <span>BuzzFlow</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:16px;color:var(--cyan)"></i>
+          </div>
+          <p class="prod-desc">Unified workspace platform integrating real-time team chat, tasks, multi-stage projects, pipeline CRM, and automated finance tracking.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> CRM & Tasks</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Real-time Chat</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Finance</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card" data-key="PostMarrow">
+        <div class="prod-visual"><video class="pv" muted loop playsinline preload="metadata" poster="videos/postmarrow-poster.jpg" src="videos/postmarrow.mp4"></video>
+          <img class="pv-poster" src="videos/postmarrow-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Cybersecurity</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title">
+            <span>Post Marrow</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:16px;color:var(--cyan)"></i>
+          </div>
+          <p class="prod-desc">Military-grade business email defense infrastructure featuring zero-day phishing protection, AI spam filtering, and automated encryption vaults.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Zero-Day Shield</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> End-to-End Vault</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> 99.99% Filter</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card" data-key="Signvero">
+        <div class="prod-visual"><video class="pv" muted loop playsinline preload="metadata" poster="videos/signvero-poster.jpg" src="videos/signvero.mp4"></video>
+          <img class="pv-poster" src="videos/signvero-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Digital Media</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title">
+            <span>Signvero</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:16px;color:var(--cyan)"></i>
+          </div>
+          <p class="prod-desc">Cloud-based digital signage network and emergency broadcasting system. Schedule targeted video content across thousands of global screens.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Multi-screen Sync</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Instant Broadcast</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Cloud Playlists</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card" data-key="Mobilient">
+        <div class="prod-visual"><video class="pv" muted loop playsinline preload="metadata" poster="videos/mobilient-poster.jpg" src="videos/mobilient.mp4"></video>
+          <img class="pv-poster" src="videos/mobilient-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Device Control</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title">
+            <span>Mobilient MDM</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:16px;color:var(--cyan)"></i>
+          </div>
+          <p class="prod-desc">Enterprise Mobility Management to remotely monitor, lock, update, and secure your company's smartphones, tablets, POS terminals, and laptops.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Remote Lock/Wipe</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Kiosk Policy</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> App Distribution</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card" data-key="ShipFlow">
+        <div class="prod-visual"><video class="pv" muted loop playsinline preload="metadata" poster="videos/shipflow-poster.jpg" src="videos/shipflow.mp4"></video>
+          <img class="pv-poster" src="videos/shipflow-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Supply Chain</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title">
+            <span>Ship Flow</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:16px;color:var(--cyan)"></i>
+          </div>
+          <p class="prod-desc">End-to-end Freight Forwarding & Cargo Logistics suite with GPS container tracking, manifest automation, customs compliance, and client billing.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> GPS Tracking</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Automated Manifest</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Customs Portal</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card" data-key="TrackOnMoves">
+        <div class="prod-visual"><video class="pv" muted loop playsinline preload="metadata" poster="videos/trackonmoves-poster.jpg" src="videos/trackonmoves.mp4"></video>
+          <img class="pv-poster" src="videos/trackonmoves-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Telematics &amp; Fleet</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title">
+            <span>TrackOnMoves</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:16px;color:var(--cyan)"></i>
+          </div>
+          <p class="prod-desc">Smart vehicle tracking and driver analytics platform. Real-time geofencing, fuel monitoring, engine diagnostics, and automated route optimization.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Live Geofence</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Fuel Diagnostics</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Driver Score</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card" data-key="Itmenaan">
+        <div class="prod-visual"><video class="pv" muted loop playsinline preload="metadata" poster="videos/itmenaan-poster.jpg" src="videos/itmenaan.mp4"></video><img class="pv-poster" src="videos/itmenaan-poster.jpg" alt="" loading="lazy" draggable="false"><span class="prod-tag">Marketplace</span></div>
+        <div class="prod-body"><div class="prod-title"><span>Itmenaan</span><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:16px;color:var(--cyan)"></i></div><p class="prod-desc">Pakistan&rsquo;s trusted buy &amp; sell marketplace connecting buyers and sellers across Pakistan.</p><div class="prod-specs"><div class="spec-chip"><i class="fa-solid fa-check"></i> Buy &amp; Sell</div><div class="spec-chip"><i class="fa-solid fa-check"></i> Listings</div><div class="spec-chip"><i class="fa-solid fa-check"></i> Secure Deals</div></div>
+        <div class="card-bottom"><span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span><span class="live-demo-pill">Click to Open</span></div></div>
+      </article>
+      <article class="p-card" data-key="Hospital">
+        <div class="prod-visual"><video class="pv" muted loop playsinline preload="metadata" poster="videos/hospital-poster.jpg" src="videos/hospital.mp4"></video>
+          <img class="pv-poster" src="videos/hospital-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Healthcare OS</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title">
+            <span>Hospital Management</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:16px;color:var(--cyan)"></i>
+          </div>
+          <p class="prod-desc">Centralized health operations engine supporting 8+ distinct user roles (Doctors, Nurses, Pharmacy, Lab, Billing) across 60+ modular hospital workflows.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> 8+ User Portals</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> 60+ Modules</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> OPD/IPD</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card" data-key="Microsoft365">
+       <div class="prod-visual"><video class="pv" muted loop playsinline preload="metadata" poster="videos/m365-poster.jpg" src="videos/m365.mp4"></video>
+          <img class="pv-poster" src="videos/m365-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Productivity Cloud </span>
+        </div>
+        <div class="prod-body"><div class="prod-title"><span>Microsoft 365</span><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:16px;color:var(--cyan)"></i></div><p class="prod-desc">Powerful apps, AI-powered Copilot assistance, and trusted cloud storage to boost productivity.</p><div class="prod-specs"><div class="spec-chip"><i class="fa-solid fa-check"></i> Office Apps</div><div class="spec-chip"><i class="fa-solid fa-check"></i> Copilot AI</div><div class="spec-chip"><i class="fa-solid fa-check"></i> Cloud Storage</div></div>
+        <div class="card-bottom"><span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span><span class="live-demo-pill">Click to Open</span></div></div>
+      </article>
+      <article class="p-card" data-key="ERPCRM">
+        <div class="prod-visual"><video class="pv" muted loop playsinline preload="metadata" poster="videos/erpcrm-poster.jpg" src="videos/erpcrm.mp4"></video>
+          <img class="pv-poster" src="videos/erpcrm-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Core Enterprise</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title">
+            <span>ERP &amp; CRM Architecture</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:16px;color:var(--cyan)"></i>
+          </div>
+          <p class="prod-desc">Custom enterprise resource planning solution connecting multi-warehouse inventory, procurement, human capital, automated taxation, and client relations.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Inventory Sync</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Automated Payroll</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i> Sales Forecasts</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+ 
+</section>
+
+<section id="offer">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow rv">What We Offer</span><h2 class="rv">Driving Digital Growth with Smart Technology Solutions</h2><p class="rv">We develop tailored software solutions that address complex business challenges and streamline operations.</p></div>
+    <div class="vid-banner rv"><video muted loop playsinline preload="metadata" poster="videos/digital-growth-banner.jpg" src="videos/digital-growth-banner.mp4"></video></div>
+    <div class="services-grid g4">
+      <div class="service-card rv" data-svc="software" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-code"></i></div><h3 class="srv-title">Custom Software Solutions</h3><p class="srv-desc">We develop tailored software solutions that address complex business challenges and streamline operations.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="webdev" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-globe"></i></div><h3 class="srv-title">Website Development</h3><p class="srv-desc">Custom web development solutions engineered for performance, scalability, and business growth.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="marketing" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-bullhorn"></i></div><h3 class="srv-title">Digital Marketing</h3><p class="srv-desc">Drive traffic, increase visibility, and grow your brand with result-driven digital marketing and SEO strategies tailored to your business.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="ecommerce" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-cart-shopping"></i></div><h3 class="srv-title">E-Commerce Solutions</h3><p class="srv-desc">Create secure and user-friendly online stores that enhance customer experience and increase conversions.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="mobileapp" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-mobile-screen"></i></div><h3 class="srv-title">Mobile App Development</h3><p class="srv-desc">We create powerful native and cross-platform mobile applications that deliver seamless user experiences.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="uiux" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-pen-ruler"></i></div><h3 class="srv-title">UI/UX Design</h3><p class="srv-desc">Create user-friendly interfaces and engaging experiences that improve usability and customer satisfaction.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="support" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-headset"></i></div><h3 class="srv-title">Maintenance &amp; Support</h3><p class="srv-desc">From managed IT services to staff augmentation, we provide reliable support and skilled resources to scale your operations.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="ai" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-brain"></i></div><h3 class="srv-title">AI &amp; Machine Learning</h3><p class="srv-desc">Leverage the latest technologies to stay ahead of the curve, including innovative solutions that future-proof your business.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="company">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow rv">Our Company</span><h2 class="rv">Empowering IT Consulting With Expert Company</h2></div>
+    <div class="vid-banner rv"><video muted loop playsinline preload="metadata" poster="videos/it-consulting-banner.jpg" src="videos/it-consulting-banner.mp4"></video></div>
+    <div class="services-grid g3">
+      <div class="service-card rv"><div class="srv-icon"><i class="fa-solid fa-lightbulb"></i></div><h3 class="srv-title">Transforming Ideas into Solutions</h3><p class="srv-desc">Actively partners with clients to conceptualize, design, and implement innovative solutions to complex challenges.</p></div>
+      <div class="service-card rv"><div class="srv-icon"><i class="fa-solid fa-chart-line"></i></div><h3 class="srv-title">Innovation. Strategy. Success.</h3><p class="srv-desc">A strategic partner focused on achieving tangible, positive outcomes through intelligent application of technology.</p></div>
+      <div class="service-card rv"><div class="srv-icon"><i class="fa-solid fa-compass"></i></div><h3 class="srv-title">Where Strategy Meets Technology</h3><p class="srv-desc">Not just technical implementation &mdash; technological solutions aligned directly with business objectives.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="benefits">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow rv">Benefits</span><h2 class="rv">Delivering Real Business Value Through Digital &amp; Technology Solutions</h2><p class="rv">Technology should move your business forward &mdash; not hold it back. Here is the value we deliver on every engagement.</p></div>
+    <div class="vid-banner rv"><video muted loop playsinline preload="metadata" poster="videos/business-value-banner.jpg" src="videos/business-value-banner.mp4"></video></div>
+    <div class="benefits-wrapper">
+      <div class="benefits-card-list">
+        <div class="b-card rv"><div class="b-icon"><i class="fa-solid fa-chart-pie"></i></div><div class="b-content"><h4>Smarter Digital Strategy &amp; Insights</h4><p>Make better decisions with data-driven strategies and insights. We help you analyze, optimize, and align your digital initiatives for maximum business impact.</p></div></div>
+        <div class="b-card rv"><div class="b-icon"><i class="fa-solid fa-cloud"></i></div><div class="b-content"><h4>Scalable Cloud &amp; Infrastructure</h4><p>Easily scale your business with flexible cloud solutions. From migration to management, we ensure your systems grow with your needs.</p></div></div>
+        <div class="b-card rv"><div class="b-icon"><i class="fa-solid fa-lock"></i></div><div class="b-content"><h4>Secure &amp; Reliable Systems</h4><p>Protect your business with secure, stable, and high-performing systems. We implement best practices to keep your data and operations safe.</p></div></div>
+        <div class="b-card rv"><div class="b-icon"><i class="fa-solid fa-microchip"></i></div><div class="b-content"><h4>Advanced Tools &amp; Emerging Technologies</h4><p>Stay ahead with the latest technologies. We integrate modern tools and innovative solutions to future-proof your business.</p></div></div>
+        <div class="b-card rv"><div class="b-icon"><i class="fa-solid fa-users-gear"></i></div><div class="b-content"><h4>Expert Support &amp; Dedicated Resources</h4><p>Access skilled professionals and ongoing support through our managed services and staff augmentation to keep your business running smoothly.</p></div></div>
+      </div>
+      <div class="visual-preview-box rv">
+        <div class="tech-orbit">
+          <div class="orbit-ring orbit-1"></div>
+          <div class="orbit-ring orbit-2"></div>
+          <div class="center-core"><i class="fa-solid fa-atom"></i></div>
+          <div style="margin-top:30px;z-index:2">
+            <h3 style="font-family:'Space Grotesk';font-size:22px;color:#fff;margin-bottom:8px">Devniques Engine</h3>
+            <p style="color:var(--cyan);font-size:13.5px;letter-spacing:1px;font-weight:600">SMART TECH OS &bull; ACTIVE CLOUD</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow rv">Why Devniques</span><h2 class="rv">Key Features</h2><p class="rv">Every solution we ship is built on the same solid foundations.</p></div>
+    <div class="services-grid g4">
+      <div class="service-card rv"><div class="srv-icon"><i class="fa-solid fa-laptop-code"></i></div><h3 class="srv-title">Responsive Design</h3><p class="srv-desc">Ensure your website performs seamlessly across all devices, including mobile, tablet, and desktop.</p></div>
+      <div class="service-card rv"><div class="srv-icon"><i class="fa-solid fa-gauge-high"></i></div><h3 class="srv-title">High Performance</h3><p class="srv-desc">Deliver fast-loading websites optimized for speed, performance, and user experience.</p></div>
+      <div class="service-card rv"><div class="srv-icon"><i class="fa-solid fa-shield-halved"></i></div><h3 class="srv-title">Secure Development</h3><p class="srv-desc">Implement strong security practices to protect your website and user data.</p></div>
+      <div class="service-card rv"><div class="srv-icon"><i class="fa-solid fa-layer-group"></i></div><h3 class="srv-title">Scalable Solutions</h3><p class="srv-desc">Build flexible platforms that grow with your business and adapt to future needs.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="wrap">
+    <div class="cta-box rv">
+      <h2>Let&rsquo;s Collaborate Together</h2>
+      <p>We are always ready to help you at any time, let&rsquo;s talk together.</p>
+      <div class="cta-actions">
+        <a class="m-pri cta-white" href="https://devniques.com/contact-us/"><span>Get a Quote</span><i class="fa-solid fa-arrow-right"></i></a>
+        <a class="m-sec" href="mailto:info@devniques.com"><span>Email Our Engineers</span><i class="fa-regular fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <img src="logo-white.png" alt="Devniques">
+        <p>Smart Technology Solutions &mdash; innovative digital, cloud, and software solutions for a rapidly evolving digital world.</p>
+        <div class="f-social">
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="openProductModal('BuzzFlow')">BuzzFlow Suite</a></li>
+          <li><a href="javascript:void(0)" onclick="openProductModal('Hospital')">Hospital Management</a></li>
+          <li><a href="javascript:void(0)" onclick="openProductModal('ShipFlow')">Ship Flow Logistics</a></li>
+          <li><a href="javascript:void(0)" onclick="openProductModal('TrackOnMoves')">TrackOnMoves Fleet</a></li>
+          <li><a href="javascript:void(0)" onclick="openProductModal('PostMarrow')">Post Marrow Email</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="https://devniques.com/software-solutions/">Custom Software</a></li>
+          <li><a href="https://devniques.com/web-development/">Website Development</a></li>
+          <li><a href="https://devniques.com/digital-marketing-and-seo-services/">Digital Marketing</a></li>
+          <li><a href="https://devniques.com/microsoft-365/">Microsoft 365</a></li>
+          <li><a href="https://devniques.com/erp-crm/">ERP &amp; CRM Systems</a></li>
+        </ul>
+      </div>
+      <div class="footer-col f-contact">
+        <h4>HQ &amp; Contact</h4>
+        <p><i class="fa-solid fa-location-dot"></i> Office No. 904, 9th Floor, Dulara Business Center, Khalid Bin Waleed Road, Karachi</p>
+        <p><i class="fa-solid fa-phone"></i> 021-36275379</p>
+        <p><i class="fa-solid fa-envelope"></i> info@devniques.com</p>
+        <p><i class="fa-solid fa-clock"></i> Mon &ndash; Sat : 9:00 AM &ndash; 6:00 PM</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Devniques Technology Solutions. All Rights Reserved.</div>
+      <div class="fb-links">
+        <a href="#top">Home</a>
+        <a href="#products">Products</a>
+        <a href="https://devniques.com/blog/">Blog</a>
+        <a href="https://devniques.com/contact-us/">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Interactive Product Detail Modal (Opens when ANY product is clicked!) -->
+<div class="modal-overlay" id="productModal" onclick="closeModalOnOuterClick(event)">
+  <div class="modal-card">
+    <button class="modal-close-btn" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
+    <span class="modal-header-badge" id="modalBadge">SaaS Solution</span>
+    <h3 class="modal-title" id="modalTitle">Product Name</h3>
+    <p class="modal-summary" id="modalSummary">Full architectural and functional details of the product.</p>
+    
+    <h4 style="color:#fff;font-size:16px;margin-bottom:14px;letter-spacing:1px;text-transform:uppercase;">Included Capabilities &amp; Modules</h4>
+    <div class="modal-features-grid" id="modalFeatures">
+      <!-- Populated via JS -->
+    </div>
+
+    <div class="modal-footer">
+      <button class="m-sec" onclick="closeProductModal()">Close Preview</button>
+      <button class="m-pri" onclick="requestProductQuote()">
+        <span>Deploy This Product</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Interactive Service Detail Modal (opens when a What We Offer service is clicked) -->
+<div class="modal-overlay" id="serviceModal" onclick="closeServiceModalOnOuterClick(event)">
+  <div class="modal-card">
+    <button class="modal-close-btn" onclick="closeServiceModal()"><i class="fa-solid fa-xmark"></i></button>
+    <span class="modal-header-badge">Our Service</span>
+    <div class="modal-svc-icon" id="svcIcon"><i class="fa-solid fa-code"></i></div>
+    <h3 class="modal-title" id="svcTitle">Service Name</h3>
+    <p class="modal-summary" id="svcDesc">Service description.</p>
+    <div class="modal-footer">
+      <button class="m-sec" onclick="closeServiceModal()">Close</button>
+      <button class="m-pri" onclick="requestServiceQuote()">
+        <span>Request This Service</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Sticky nav shadow
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), {passive:true});
+// Mobile menu
+const burger = document.getElementById('burger'), navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+// Marquee: duplicate for seamless loop
+const mt = document.getElementById('marqueeTrack');
+mt.innerHTML += mt.innerHTML;
+// Scroll reveals
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.12});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+// Product Details Data Store for Dynamic Modal Click
+const productData = {
+  BuzzFlow: {
+    badge: "All-In-One Enterprise Platform",
+    title: "BuzzFlow Business OS",
+    summary: "BuzzFlow is Devniques' flagship digital workplace architecture. It merges instant departmental messaging, Kanban and Gantt project management, client pipeline CRM, and automated bookkeeping into a singular dashboard.",
+    features: [
+      { icon: "fa-comments", text: "Encrypted Departmental Team Chat & Channels" },
+      { icon: "fa-list-check", text: "Milestone Tracking & Sprint Task Boards" },
+      { icon: "fa-address-book", text: "Full Lifecycle Customer Relationship Management (CRM)" },
+      { icon: "fa-file-invoice-dollar", text: "Automated Invoicing, Expenses & Financial Ledgers" },
+      { icon: "fa-bell", text: "Real-time Webhook & Mobile Push Notifications" },
+      { icon: "fa-lock", text: "Role-Based Permissions & Enterprise Audit Logs" }
+    ]
+  },
+  Hospital: {
+    badge: "Comprehensive Healthcare Ecosystem",
+    title: "Hospital Management System (HMS)",
+    summary: "An enterprise-grade hospital automation system trusted by healthcare providers. Built to coordinate over 8 distinct medical user groups and 60+ specialty modules with zero downtime.",
+    features: [
+      { icon: "fa-user-doctor", text: "Doctors OPD Queue & Digital Prescription Portal" },
+      { icon: "fa-bed-pulse", text: "IPD Bed Allocation, Vitals & Nurse Station Monitoring" },
+      { icon: "fa-pills", text: "Automated Pharmacy Inventory & Batch Expiry Warnings" },
+      { icon: "fa-flask-vial", text: "Pathology Lab Testing & Barcode Sample Reports" },
+      { icon: "fa-receipt", text: "Insurance TPA Claim Handling & Multi-counter Billing" },
+      { icon: "fa-shield-halved", text: "HIPAA Compliant Electronic Medical Records (EMR)" }
+    ]
+  },
+  ShipFlow: {
+    badge: "Maritime & Freight Management",
+    title: "Ship Flow Logistics OS",
+    summary: "A cloud shipping and freight forwarding software engineered for international container lines, clearing agents, and air/sea transport consolidators.",
+    features: [
+      { icon: "fa-earth-americas", text: "Real-time Live Vessel & Container GPS Telematics" },
+      { icon: "fa-file-lines", text: "Automated Bill of Lading (BL) & Manifest Generator" },
+      { icon: "fa-scale-balanced", text: "Customs Duty Calculator & Clearance Workflow" },
+      { icon: "fa-warehouse", text: "Bonded CFS Warehouse Cargo Inventory Management" },
+      { icon: "fa-dollar-sign", text: "Multi-currency Demurrage & Freight Rate Sheets" },
+      { icon: "fa-mobile-retro", text: "Consignee Self-Service Tracking Portal" }
+    ]
+  },
+  TrackOnMoves: {
+    badge: "Fleet Telematics Platform",
+    title: "TrackOnMoves GPS & Fleet Management",
+    summary: "Precision fleet telematics engine offering complete visibility over heavy vehicle fleets, commercial delivery vans, route optimizations, and driver safety standards.",
+    features: [
+      { icon: "fa-satellite", text: "High-Frequency Sub-Second Live GPS Vehicle Tracking" },
+      { icon: "fa-gas-pump", text: "Ultrasonic Fuel Sensor & Theft Siphon Alerts" },
+      { icon: "fa-route", text: "Smart Multi-Stop Route Optimization & Geofencing" },
+      { icon: "fa-id-card", text: "Driver Behavior Scoring (Harsh Braking / Speeding)" },
+      { icon: "fa-wrench", text: "Automated Preventive Maintenance & Tire Log" },
+      { icon: "fa-power-off", text: "Remote Engine Immobilization Via Mobile App" }
+    ]
+  },
+  PostMarrow: {
+    badge: "Cybersecurity & Email Protection",
+    title: "Post Marrow Business Security Suite",
+    summary: "Hardened email infrastructure engineered to block spear-phishing, business email compromise (BEC), and malware payloads before they ever reach company mailboxes.",
+    features: [
+      { icon: "fa-shield-virus", text: "AI-Powered Zero-Day Phishing & Malware Scanners" },
+      { icon: "fa-key", text: "Automated PGP / S-MIME Email Vault Encryption" },
+      { icon: "fa-envelope-open-text", text: "DMARC, DKIM & SPF Automated Alignment Engine" },
+      { icon: "fa-server", text: "High-Availability 99.999% Redundant MX Mail Gateways" },
+      { icon: "fa-database", text: "Compliant 7-Year Immutable Email Archiving" },
+      { icon: "fa-user-lock", text: "Adaptive 2FA & Suspicious Login Geolocation Lockout" }
+    ]
+  },
+  Mobilient: {
+    badge: "Device Fleet Security",
+    title: "Mobilient Mobile Device Management (MDM)",
+    summary: "Centralized control console for provisioning, monitoring, and locking corporate Android, iOS, Windows, and rugged handheld warehouse devices.",
+    features: [
+      { icon: "fa-tablet-screen-button", text: "Zero-Touch Corporate Device Enrollment & Kiosk Mode" },
+      { icon: "fa-ban", text: "Remote Wipe & Stolen Asset Lockdown Command" },
+      { icon: "fa-cloud-arrow-down", text: "Enterprise Private App Catalog Distribution" },
+      { icon: "fa-network-wired", text: "Automated Corporate VPN & Wi-Fi Certificate Push" },
+      { icon: "fa-camera-retro", text: "Hardware Policy Enforcement (Camera/USB Disabling)" },
+      { icon: "fa-chart-line", text: "OS Version Compliance & Patch Management" }
+    ]
+  },
+  Signvero: {
+    badge: "Digital Display Network",
+    title: "Signvero Cloud Signage",
+    summary: "Manage commercial display screens, interactive touch kiosks, digital menu boards, and factory alert displays from any web browser.",
+    features: [
+      { icon: "fa-display", text: "Central Cloud Media Scheduler for 4K Video/Graphics" },
+      { icon: "fa-triangle-exclamation", text: "Instant Emergency Alert Override Broadcasting" },
+      { icon: "fa-layer-group", text: "Multi-Zone Layouts (Weather, News, Live Tickers)" },
+      { icon: "fa-wifi", text: "Offline Caching & Automatic Sync Recovery" },
+      { icon: "fa-rotate", text: "Supports Android TV, Raspberry Pi, Windows & LG WebOS" },
+      { icon: "fa-chart-pie", text: "Screen Uptime & Proof-of-Play Audit Analytics" }
+    ]
+  },
+  ERPCRM: {
+    badge: "Core Enterprise Engine",
+    title: "Unified ERP & CRM Architecture",
+    summary: "Tailor-made Enterprise Resource Planning that connects supply chain, human capital, point-of-sale, and multi-tier finance into a cohesive real-time ledger.",
+    features: [
+      { icon: "fa-boxes-stacked", text: "Multi-Warehouse Automated Inventory Reordering" },
+      { icon: "fa-users-gear", text: "Human Resources, Biometric Attendance & Payroll" },
+      { icon: "fa-handshake", text: "Sales Pipeline Forecasting & Quotation Engine" },
+      { icon: "fa-calculator", text: "Multi-currency Tax, Audit & General Ledger Accounting" },
+      { icon: "fa-link", text: "RESTful API Integration with Banks & Custom Portals" },
+      { icon: "fa-shield", text: "Granular Departmental Access Control & History Auditing" }
+    ]
+  },
+  Itmenaan: {
+    badge: "Online Marketplace",
+    title: "Itmenaan Buy & Sell Marketplace",
+    summary: "Pakistan's trusted buy & sell marketplace \u2014 a modern online platform that connects buyers and sellers across Pakistan with simple listings and safe deals.",
+    features: [
+      { icon: "fa-tags", text: "Quick Ad Posting with Photos & Categories" },
+      { icon: "fa-magnifying-glass", text: "Smart Search & Filters by City and Price" },
+      { icon: "fa-comments", text: "Direct Buyer\u2013Seller Messaging" },
+      { icon: "fa-shield-halved", text: "Verified Profiles & Safer Transactions" },
+      { icon: "fa-mobile-screen", text: "Fast, Mobile-friendly Browsing Experience" },
+      { icon: "fa-chart-line", text: "Seller Dashboard with Listing Insights" }
+    ]
+  },
+  Microsoft365: {
+    badge: "Productivity & Cloud",
+    title: "Microsoft 365 for Business",
+    summary: "Boost productivity with Microsoft 365 \u2014 powerful apps, AI-powered Copilot assistance, and trusted cloud storage, set up and supported by Devniques.",
+    features: [
+      { icon: "fa-file-word", text: "Word, Excel, PowerPoint & Outlook Apps" },
+      { icon: "fa-wand-magic-sparkles", text: "AI-powered Copilot Assistance" },
+      { icon: "fa-cloud", text: "Secure Cloud Storage with OneDrive" },
+      { icon: "fa-video", text: "Teams Meetings, Chat & Collaboration" },
+      { icon: "fa-envelope", text: "Professional Business Email" },
+      { icon: "fa-lock", text: "Enterprise-grade Security & Compliance" }
+    ]
+  }
+};
+
+// Modal Open Function
+function openProductModal(key) {
+  const data = productData[key] || productData.BuzzFlow;
+  document.getElementById('modalBadge').innerText = data.badge;
+  document.getElementById('modalTitle').innerText = data.title;
+  document.getElementById('modalSummary').innerText = data.summary;
+  
+  const featContainer = document.getElementById('modalFeatures');
+  featContainer.innerHTML = '';
+  data.features.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'm-feat';
+    div.innerHTML = `<i class="fa-solid ${f.icon}"></i><span>${f.text}</span>`;
+    featContainer.appendChild(div);
+  });
+
+  const modal = document.getElementById('productModal');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProductModal() {
+  const modal = document.getElementById('productModal');
+  modal.classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+function closeModalOnOuterClick(e) {
+  if (e.target.id === 'productModal') {
+    closeProductModal();
+  }
+}
+
+function requestProductQuote() {
+  const title = document.getElementById('modalTitle').innerText;
+  closeProductModal();
+  const cta = document.getElementById('cta');
+  cta.scrollIntoView({ behavior: 'smooth' });
+}
+
+function openContactModal() {
+  openProductModal('BuzzFlow');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProductModal()});
+
+// ===== Service modal (What We Offer cards) =====
+const serviceData = {
+  software: {icon:"fa-code", title:"Custom Software Solutions", desc:"We develop tailored software solutions that address complex business challenges and streamline operations."},
+  webdev: {icon:"fa-globe", title:"Website Development", desc:"Custom web development solutions engineered for performance, scalability, and business growth."},
+  marketing: {icon:"fa-bullhorn", title:"Digital Marketing", desc:"Drive traffic, increase visibility, and grow your brand with result-driven digital marketing and SEO strategies tailored to your business."},
+  ecommerce: {icon:"fa-cart-shopping", title:"E-Commerce Solutions", desc:"Create secure and user-friendly online stores that enhance customer experience and increase conversions."},
+  mobileapp: {icon:"fa-mobile-screen", title:"Mobile App Development", desc:"We create powerful native and cross-platform mobile applications that deliver seamless user experiences."},
+  uiux: {icon:"fa-pen-ruler", title:"UI/UX Design", desc:"Create user-friendly interfaces and engaging experiences that improve usability and customer satisfaction."},
+  support: {icon:"fa-headset", title:"Maintenance & Support", desc:"From managed IT services to staff augmentation, we provide reliable support and skilled resources to scale your operations."},
+  ai: {icon:"fa-brain", title:"AI & Machine Learning", desc:"Leverage the latest technologies to stay ahead of the curve, including innovative solutions that future-proof your business."}
+};
+function openServiceModal(key) {
+  const d = serviceData[key];
+  if (!d) return;
+  document.getElementById('svcIcon').innerHTML = '<i class="fa-solid ' + d.icon + '"></i>';
+  document.getElementById('svcTitle').innerText = d.title;
+  document.getElementById('svcDesc').innerText = d.desc;
+  document.getElementById('serviceModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeServiceModal() {
+  document.getElementById('serviceModal').classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+function closeServiceModalOnOuterClick(e) {
+  if (e.target.id === 'serviceModal') closeServiceModal();
+}
+function requestServiceQuote() {
+  closeServiceModal();
+  document.getElementById('cta').scrollIntoView({behavior:'smooth'});
+}
+document.querySelectorAll('.service-card[data-svc]').forEach(c => {
+  c.addEventListener('click', () => openServiceModal(c.dataset.svc));
+  c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openServiceModal(c.dataset.svc); } });
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeServiceModal(); });
+
+// ===== 3D product river: auto right-to-left + drag + arrows =====
+(function(){
+  const stage = document.getElementById('stage3d');
+  const river = document.getElementById('river');
+  const cards = Array.from(river.querySelectorAll('.p-card'));
+  const prev = document.getElementById('carPrev'), next = document.getElementById('carNext');
+  const N = cards.length;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let CW = 400, GAP = 36, CH = 480;
+  const step = () => CW + GAP;
+  const totalW = () => N * step();
+  let s = 0;                       // scroll position (grows -> cards move left)
+  const AUTO = reduceMotion ? 0 : 46;  // px/sec right-to-left
+  let speed = AUTO, targetSpeed = AUTO;
+  let dragging = false, dragX = 0, dragS = 0, vel = 0, lastPX = 0, dragDist = 0;
+  let hovering = false, inView = true, arrowAnim = null;
+
+  function measure(){
+    CW = stage.clientWidth < 640 ? 300 : 400;
+    cards.forEach(c => { c.style.width = CW + 'px'; c.style.marginLeft = (-CW/2) + 'px'; });
+    CH = cards[0].offsetHeight || 480;
+    cards.forEach(c => { c.style.marginTop = (-CH/2) + 'px'; });
+  }
+  // vertical center handled via top:46% + negative margin
+  function frame(ts){
+    const dt = Math.min(.05, Math.max(0, (ts - frame._l) / 1000));
+    frame._l = ts;
+    if (!dragging && !arrowAnim){
+      speed += (targetSpeed - speed) * Math.min(1, dt * 2.5);
+      s += speed * dt;
+    }
+    if (arrowAnim){
+      const a = arrowAnim;
+      a.t += dt / a.dur;
+      const k = a.t >= 1 ? 1 : 1 - Math.pow(1 - a.t, 3);
+      s = a.from + (a.to - a.from) * k;
+      if (a.t >= 1) arrowAnim = null;
+    }
+    layout();
+    requestAnimationFrame(frame);
+  }
+  function layout(){
+    const TW = totalW(), half = TW / 2;
+    for (let i = 0; i < N; i++){
+      const raw = i * step() - s;
+      const w = ((raw % TW) + TW) % TW;       // 0..TW
+      const px = w - half;                    // -half..half
+      const t = px / half;                    // -1..1
+      const at = Math.abs(t);
+      const vis = Math.max(0, 1 - at * 1.25); // fade before wrap jump
+      const c = cards[i];
+      c.style.transform =
+        `translateX(${px.toFixed(1)}px) translateZ(${(-at * 430).toFixed(1)}px) rotateY(${(t * 40).toFixed(2)}deg)`;
+      c.style.opacity = vis.toFixed(3);
+      c.style.zIndex = Math.round(200 - at * 190);
+      c.style.pointerEvents = vis > .35 ? 'auto' : 'none';
+      c._t = t;
+    }
+  }
+  // drag (window-level move/up so no pointer capture is needed; card clicks stay native)
+  function onDragMove(e){
+    if (!dragging) return;
+    const dx = e.clientX - dragX;
+    dragDist = Math.max(dragDist, Math.abs(dx));
+    s = dragS - dx;
+    vel = (lastPX - e.clientX); lastPX = e.clientX;
+    layout();
+  }
+  function onDragEnd(){
+    window.removeEventListener('pointermove', onDragMove);
+    window.removeEventListener('pointerup', onDragEnd);
+    window.removeEventListener('pointercancel', onDragEnd);
+    if (!dragging) return;
+    dragging = false; stage.classList.remove('dragging');
+    s += vel * 6; // fling
+  }
+  stage.addEventListener('pointerdown', e => {
+    dragging = true; stage.classList.add('dragging');
+    dragX = e.clientX; dragS = s; vel = 0; lastPX = e.clientX; dragDist = 0;
+    arrowAnim = null;
+    window.addEventListener('pointermove', onDragMove);
+    window.addEventListener('pointerup', onDragEnd);
+    window.addEventListener('pointercancel', onDragEnd);
+  });
+  stage.addEventListener('dragstart', e => e.preventDefault());
+  // plain click on a card (not a drag) -> open product modal
+  cards.forEach(card => {
+    card.addEventListener('click', e => {
+      if (dragDist > 8) { e.preventDefault(); return; } // drag, not a click
+      openProductModal(card.dataset.key);
+    });
+  });
+  stage.addEventListener('mouseenter', () => { hovering = true; targetSpeed = 0; });
+  stage.addEventListener('mouseleave', () => { hovering = false; if (!reduceMotion) targetSpeed = AUTO; });
+  // arrows
+  function nudge(dir){
+    if (arrowAnim) return;
+    arrowAnim = {from: s, to: s + dir * step() * 2, t: 0, dur: .55};
+  }
+  prev.addEventListener('click', () => nudge(-1));
+  next.addEventListener('click', () => nudge(1));
+  // video play/pause: only near-center cards play, and only when stage in view
+  const vids = cards.map(c => c.querySelector('video'));
+  vids.forEach(v => { if (!v) return;
+    v.addEventListener('playing', () => v.classList.add('playing'));
+    v.addEventListener('pause', () => v.classList.remove('playing'));
+  });
+  if (matchMedia('(hover:hover)').matches) {
+    cards.forEach((c, i) => {
+      if (!vids[i]) return;
+      c.addEventListener('pointerenter', () => vids[i].play().catch(()=>{}));
+      c.addEventListener('pointerleave', () => vids[i].pause());
+    });
+  } else {
+    setInterval(() => vids.forEach((v, i) => {
+      if (!v) return;
+      if (Math.abs(cards[i]._t || 0) < .35 && inView && !document.hidden) v.play().catch(()=>{}); else v.pause();
+    }), 500);
+  }
+  new IntersectionObserver(es => es.forEach(e => { inView = e.isIntersecting; }), {threshold:.05}).observe(stage);
+  addEventListener('resize', () => { measure(); layout(); });
+  measure(); layout();
+  requestAnimationFrame(ts => { frame._l = ts; requestAnimationFrame(frame); });
+})();
+// Section banner videos: play on hover only (touch: while in view)
+(function(){
+  const vb=document.querySelectorAll('.vid-banner');
+  if (matchMedia('(hover:hover)').matches) {
+    vb.forEach(b => { const v=b.querySelector('video');
+      b.addEventListener('pointerenter',()=>v.play().catch(()=>{}));
+      b.addEventListener('pointerleave',()=>v.pause()); });
+  } else {
+    const vio = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(()=>{}) : e.target.pause()), {threshold:.25});
+    vb.forEach(b => vio.observe(b.querySelector('video')));
+  }
+})();
+
+// ===== ADVANCED LAYER =====
+(function(){
+  const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // split headline into masked words
+  const h1=document.querySelector('.hero h1');let d=0;
+  h1.innerHTML=Array.from(h1.childNodes).map(n=>{
+    const cls=n.nodeType===1?' class="'+n.className+'"':'';
+    return (n.textContent).split(/(\s+)/).map(t=>/^\s*$/.test(t)?t:'<span class="w"><span'+cls+' style="transition-delay:'+(.25+(d++)*.14)+'s">'+t+'</span></span>').join('');
+  }).join('');
+  // loader -> ready
+  const ld=document.getElementById('loader'),t0=performance.now();
+  let started=false;function go(){if(started)return;started=true;const w=Math.max(0,(RM?0:1500)-(performance.now()-t0));setTimeout(()=>{ld.classList.add('out');document.body.classList.add('ready');setTimeout(()=>ld.classList.add('gone'),1000)},w)}
+  document.readyState==='complete'?go():addEventListener('load',go);setTimeout(go,2200);
+  // scroll progress + parallax var
+  const pg=document.getElementById('progress');
+  function onS(){const m=document.documentElement.scrollHeight-innerHeight;pg.style.transform='scaleX('+(m>0?scrollY/m:0)+')';document.body.style.setProperty('--sy',scrollY)}
+  addEventListener('scroll',onS,{passive:true});onS();
+  // cursor glow + card spotlight
+  const glow=document.getElementById('glow');let gx=innerWidth/2,gy=200,tx=gx,ty=gy;
+  addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY},{passive:true});
+  (function gl(){gx+=(tx-gx)*.12;gy+=(ty-gy)*.12;glow.style.transform='translate('+gx+'px,'+gy+'px)';requestAnimationFrame(gl)})();
+  document.querySelectorAll('.card,.service-card').forEach((c,i)=>{
+    c.style.transitionDelay=(i%4*.08)+'s,0s,0s,0s';
+    c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')});
+  });
+  // heading underline trigger
+  document.querySelectorAll('.sec-head h2').forEach(h=>new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){h.classList.add('in');o.disconnect()}}),{threshold:.6}).observe(h));
+
+  // ===== full-page particle network (mouse-reactive, click burst, scroll parallax) =====
+  const cv=document.getElementById('fx'),cx=cv.getContext('2d');
+  const ring=document.getElementById('ring'),dot=document.getElementById('dot');
+  const fine=matchMedia('(hover:hover)').matches;
+  let rx=tx,ry=ty;
+  if(fine&&!RM){addEventListener('pointermove',()=>{ring.classList.add('on');dot.classList.add('on')},{once:true});
+    (function rl(){rx+=(tx-rx)*.18;ry+=(ty-ry)*.18;ring.style.transform='translate('+rx+'px,'+ry+'px)';dot.style.transform='translate('+tx+'px,'+ty+'px)';requestAnimationFrame(rl)})();
+    document.addEventListener('pointerover',e=>ring.classList.toggle('big',!!e.target.closest('a,button,.p-card,.card,.stage-3d')));}
+  // magnetic buttons
+  if(fine&&!RM)document.querySelectorAll('.btn,.car-btn').forEach(b=>{
+    b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();b.style.translate=((e.clientX-r.left-r.width/2)*.22)+'px '+((e.clientY-r.top-r.height/2)*.3)+'px'});
+    b.addEventListener('pointerleave',()=>{b.style.translate=''});});
+  // scrollspy
+  const links=[...document.querySelectorAll('.nav-links a[href^="#"]')];
+  const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('section[id]').forEach(x=>spy.observe(x));
+  if(RM)return;
+  let W,H,P=[],B=[],mx=-999,my=-999;
+  function size(){const dp=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*dp;cv.height=H*dp;cx.setTransform(dp,0,0,dp,0,0);
+    P=Array.from({length:Math.min(64,Math.round(W*H/22000))},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,d:.05+Math.random()*.2,yy:0}))}
+  addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY},{passive:true});
+  document.addEventListener('pointerleave',()=>{mx=my=-999});
+  addEventListener('pointerdown',e=>{for(let i=0;i<14;i++){const a=i/14*6.283;B.push({x:e.clientX,y:e.clientY,vx:Math.cos(a)*(1.5+Math.random()*2),vy:Math.sin(a)*(1.5+Math.random()*2),l:1})}});
+  addEventListener('resize',size);size();
+  (function draw(){requestAnimationFrame(draw);if(document.hidden)return;draw._f=(draw._f||0)+1;if(draw._f%2)return;cx.clearRect(0,0,W,H);
+    for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H+400)p.vy*=-1;p.yy=(((p.y-scrollY*p.d)%H)+H)%H}
+    for(let i=0;i<P.length;i++){const p=P[i];let dx=p.x-mx,dy=p.yy-my,dm=Math.hypot(dx,dy);if(dm<140&&dm>0){p.x+=dx/dm*1.2;p.y+=dy/dm*1.2}
+      cx.fillStyle='rgba(140,190,255,.7)';cx.beginPath();cx.arc(p.x,p.yy,1.7,0,6.283);cx.fill();
+      for(let j=i+1;j<P.length;j++){const q=P[j],d=Math.hypot(p.x-q.x,p.yy-q.yy);if(d<110){cx.strokeStyle='rgba(110,170,255,'+(.2*(1-d/110))+')';cx.beginPath();cx.moveTo(p.x,p.yy);cx.lineTo(q.x,q.yy);cx.stroke()}}
+      if(dm<180){cx.strokeStyle='rgba(185,218,255,'+(.42*(1-dm/180))+')';cx.beginPath();cx.moveTo(p.x,p.yy);cx.lineTo(mx,my);cx.stroke()}}
+    for(let i=B.length-1;i>=0;i--){const b=B[i];b.x+=b.vx;b.y+=b.vy;b.vx*=.95;b.vy*=.95;b.l-=.025;if(b.l<=0){B.splice(i,1);continue}
+      cx.fillStyle='rgba(160,205,255,'+b.l+')';cx.beginPath();cx.arc(b.x,b.y,2.2*b.l+.4,0,6.283);cx.fill()}})();
+})();
+</script>
+</body>
+</html>
