@@ -1102,7 +1102,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService
   const step = () => CW + GAP;
   const totalW = () => N * step();
   let s = 0;                       // scroll position (grows -> cards move left)
-  const AUTO = reduceMotion ? 0 : 46;  // px/sec right-to-left
+  const AUTO = reduceMotion ? 0 : (matchMedia('(hover:none)').matches ? 22 : 46);  // px/sec right-to-left (slower on touch: less video churn, smoother)
   let speed = AUTO, targetSpeed = AUTO;
   let dragging = false, dragX = 0, dragS = 0, vel = 0, lastPX = 0, dragDist = 0;
   let hovering = false, inView = true, arrowAnim = null;
@@ -1117,6 +1117,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService
   function frame(ts){
     const dt = Math.min(.05, Math.max(0, (ts - frame._l) / 1000));
     frame._l = ts;
+    if (!inView && !dragging && !arrowAnim){ requestAnimationFrame(frame); return; } // off-screen: skip all work
     if (!dragging && !arrowAnim){
       speed += (targetSpeed - speed) * Math.min(1, dt * 2.5);
       s += speed * dt;
@@ -1248,7 +1249,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService
   // cursor glow + card spotlight
   const glow=document.getElementById('glow');let gx=innerWidth/2,gy=200,tx=gx,ty=gy;
   addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY},{passive:true});
-  (function gl(){gx+=(tx-gx)*.12;gy+=(ty-gy)*.12;glow.style.transform='translate('+gx+'px,'+gy+'px)';requestAnimationFrame(gl)})();
+  if(getComputedStyle(glow).display!=='none')(function gl(){gx+=(tx-gx)*.12;gy+=(ty-gy)*.12;glow.style.transform='translate('+gx+'px,'+gy+'px)';requestAnimationFrame(gl)})();
   document.querySelectorAll('.card,.service-card').forEach((c,i)=>{
     c.style.transitionDelay=(i%4*.08)+'s,0s,0s,0s';
     c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')});
