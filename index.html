@@ -69,7 +69,11 @@ a{text-decoration:none;color:inherit}
 .hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(120,175,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(120,175,255,.09) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 30%,transparent 75%);opacity:.6;pointer-events:none;animation:gridPan 24s linear infinite}
 @keyframes gridPan{from{background-position:0 0}to{background-position:56px 56px}}
 .hero-inner{position:relative;max-width:860px;margin:0 auto}
-.eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:22px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:2.5px;color:var(--cyan);text-transform:uppercase;margin-bottom:22px;padding:9px 20px;border-radius:999px;background:rgba(0,240,255,.06);border:1px solid rgba(0,240,255,.35);box-shadow:0 0 26px rgba(0,240,255,.16),inset 0 0 20px rgba(0,240,255,.05);position:relative;overflow:hidden}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:ebPulse 2.2s ease-in-out infinite;flex-shrink:0}
+.eyebrow::after{content:"";position:absolute;top:0;bottom:0;width:56px;left:-80px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.30),transparent);transform:skewX(-18deg);animation:ebShine 4s ease-in-out infinite}
+@keyframes ebPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.5}}
+@keyframes ebShine{0%,55%{left:-80px}100%{left:135%}}
 .hero h1{font-size:clamp(42px,6.4vw,76px);font-weight:800;letter-spacing:-2.5px;line-height:1.04;margin-bottom:24px}
 .hero h1 .accent{background:linear-gradient(100deg,var(--blue) 20%,#5ea0ff 50%,var(--blue) 80%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:accentFlow 6s linear infinite}
 @keyframes accentFlow{to{background-position:200% center}}
@@ -423,7 +427,28 @@ footer{border-top:1px solid rgba(99,149,255,.16);background:#020612;padding:80px
 @media(max-width:1100px){.services-grid.g4{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:992px){.benefits-wrapper{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}.services-grid.g3{grid-template-columns:1fr}}
 @media(max-width:640px){.services-grid.g4{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.cta-box{padding:50px 22px}.tech-orbit{height:340px}.orbit-2{width:300px;height:300px}.orbit-1{width:220px;height:220px}.footer-bottom{flex-direction:column;align-items:flex-start}}
-@media(prefers-reduced-motion:reduce){.orbit-ring,.center-core{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.orbit-ring,.center-core,.eyebrow::before,.eyebrow::after{animation:none!important}}
+/* ===== SERVICE MODAL: WHAT'S INCLUDED ===== */
+.modal-feat-head{font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:14px}
+.svc-included{display:grid;grid-template-columns:1fr 1fr;gap:13px 18px;margin-bottom:28px}
+.svc-inc{display:flex;align-items:center;gap:11px;font-size:14px;font-weight:600;color:#e4efff}
+.svc-inc i{color:#2dd4bf;font-size:17px;flex-shrink:0}
+@media(max-width:560px){.svc-included{grid-template-columns:1fr}}
+/* ===== CAROUSEL LIVE CAPTION (centered) ===== */
+.car-cap{margin:22px auto 0;max-width:1200px;padding:0 24px;text-align:center}
+.car-cap-top{display:flex;align-items:baseline;justify-content:center;gap:16px;min-height:32px;margin-bottom:10px;flex-wrap:wrap}
+.car-cap-name{font-family:'Space Grotesk',sans-serif;font-size:23px;font-weight:700;letter-spacing:-.5px;color:#fff;transition:opacity .16s ease}
+.car-cap-cat{font-size:12px;font-weight:700;letter-spacing:2.5px;color:var(--cyan);transition:opacity .16s ease}
+.car-cap-fade{opacity:0}
+.car-cap-count{display:flex;align-items:center;justify-content:center;gap:14px}
+.car-cap-idx{font-size:15px;font-weight:800;color:#fff;min-width:26px}
+.car-cap-bar{flex:1;max-width:230px;height:3px;border-radius:3px;background:rgba(255,255,255,.13);overflow:hidden}
+.car-cap-bar i{display:block;height:100%;width:10%;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--blue));box-shadow:0 0 10px rgba(0,240,255,.6);transition:width .45s ease}
+.car-cap-total{font-size:14px;font-weight:600;color:#7e93bd}
+/* ===== ENGINE ORBIT CHIPS ===== */
+.tech-orbit .eng-chip{position:absolute;left:50%;top:50%;z-index:3;will-change:transform}
+.eng-chip-in{display:inline-flex;align-items:center;gap:8px;background:rgba(6,16,40,.94);border:1px solid rgba(0,240,255,.5);border-radius:12px;padding:8px 14px;font-size:11.5px;font-weight:700;letter-spacing:1.5px;color:#d3f7ff;box-shadow:0 0 18px rgba(0,240,255,.28);white-space:nowrap}
+.eng-chip-in i{color:var(--cyan);font-size:14px}
 </style>
 </head>
 <body id="top">
@@ -682,6 +707,11 @@ footer{border-top:1px solid rgba(99,149,255,.16);background:#020612;padding:80px
     </div>
   </div>
  
+  <div class="wrap"><div class="car-cap rv">
+    <div class="car-cap-top"><span class="car-cap-name" id="carCapName">BuzzFlow</span><span class="car-cap-cat" id="carCapCat">ENTERPRISE SAAS</span></div>
+    <div class="car-cap-count"><span class="car-cap-idx" id="carCapIdx">01</span><span class="car-cap-bar"><i id="carCapFill"></i></span><span class="car-cap-total" id="carCapTotal">/ 10</span></div>
+  </div></div>
+
 </section>
 
 <section id="offer">
@@ -730,6 +760,11 @@ footer{border-top:1px solid rgba(99,149,255,.16);background:#020612;padding:80px
           <div class="orbit-ring orbit-1"></div>
           <div class="orbit-ring orbit-2"></div>
           <div class="center-core"><i class="fa-solid fa-atom"></i></div>
+          <div class="eng-chip" data-ring="outer"><span class="eng-chip-in"><i class="fa-solid fa-database"></i>DATA</span></div>
+          <div class="eng-chip" data-ring="outer"><span class="eng-chip-in"><i class="fa-solid fa-bolt"></i>EDGE</span></div>
+          <div class="eng-chip" data-ring="outer"><span class="eng-chip-in"><i class="fa-solid fa-shield-halved"></i>SECURE</span></div>
+          <div class="eng-chip" data-ring="inner"><span class="eng-chip-in"><i class="fa-solid fa-microchip"></i>AI CORE</span></div>
+          <div class="eng-chip" data-ring="inner"><span class="eng-chip-in"><i class="fa-solid fa-cloud"></i>CLOUD</span></div>
           <div style="margin-top:30px;z-index:2">
             <h3 style="font-family:'Space Grotesk';font-size:22px;color:#fff;margin-bottom:8px">Devniques Engine</h3>
             <p style="color:var(--cyan);font-size:13.5px;letter-spacing:1px;font-weight:600">SMART TECH OS &bull; ACTIVE CLOUD</p>
@@ -849,6 +884,8 @@ footer{border-top:1px solid rgba(99,149,255,.16);background:#020612;padding:80px
     <div class="modal-svc-icon" id="svcIcon"><i class="fa-solid fa-code"></i></div>
     <h3 class="modal-title" id="svcTitle">Service Name</h3>
     <p class="modal-summary" id="svcDesc">Service description.</p>
+    <div class="modal-feat-head">What&rsquo;s Included</div>
+    <div class="svc-included" id="svcIncluded"></div>
     <div class="modal-footer">
       <button class="m-sec" onclick="closeServiceModal()">Close</button>
       <button class="m-pri" onclick="requestServiceQuote()">
@@ -1055,14 +1092,14 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProductModal()}
 
 // ===== Service modal (What We Offer cards) =====
 const serviceData = {
-  software: {icon:"fa-code", title:"Custom Software Solutions", desc:"We develop tailored software solutions that address complex business challenges and streamline operations."},
-  webdev: {icon:"fa-globe", title:"Website Development", desc:"Custom web development solutions engineered for performance, scalability, and business growth."},
-  marketing: {icon:"fa-bullhorn", title:"Digital Marketing", desc:"Drive traffic, increase visibility, and grow your brand with result-driven digital marketing and SEO strategies tailored to your business."},
-  ecommerce: {icon:"fa-cart-shopping", title:"E-Commerce Solutions", desc:"Create secure and user-friendly online stores that enhance customer experience and increase conversions."},
-  mobileapp: {icon:"fa-mobile-screen", title:"Mobile App Development", desc:"We create powerful native and cross-platform mobile applications that deliver seamless user experiences."},
-  uiux: {icon:"fa-pen-ruler", title:"UI/UX Design", desc:"Create user-friendly interfaces and engaging experiences that improve usability and customer satisfaction."},
-  support: {icon:"fa-headset", title:"Maintenance & Support", desc:"From managed IT services to staff augmentation, we provide reliable support and skilled resources to scale your operations."},
-  ai: {icon:"fa-brain", title:"AI & Machine Learning", desc:"Leverage the latest technologies to stay ahead of the curve, including innovative solutions that future-proof your business."}
+  software: {icon:"fa-code", title:"Custom Software Solutions", desc:"We develop tailored software solutions that address complex business challenges and streamline operations.", included:["Discovery & Solution Architecture", "Agile Development Sprints", "QA, Testing & Hardening", "Deployment & DevOps Pipelines"]},
+  webdev: {icon:"fa-globe", title:"Website Development", desc:"Custom web development solutions engineered for performance, scalability, and business growth.", included:["Custom Design & Development", "Performance Optimization", "Scalable Architecture", "SEO-Ready Build"]},
+  marketing: {icon:"fa-bullhorn", title:"Digital Marketing", desc:"Drive traffic, increase visibility, and grow your brand with result-driven digital marketing and SEO strategies tailored to your business.", included:["SEO & Content Strategy", "Social Media Marketing", "Paid Ad Campaigns (PPC)", "Analytics & Reporting"]},
+  ecommerce: {icon:"fa-cart-shopping", title:"E-Commerce Solutions", desc:"Create secure and user-friendly online stores that enhance customer experience and increase conversions.", included:["Online Store Setup", "Secure Payment Gateways", "Product & Inventory Management", "Conversion Optimization"]},
+  mobileapp: {icon:"fa-mobile-screen", title:"Mobile App Development", desc:"We create powerful native and cross-platform mobile applications that deliver seamless user experiences.", included:["Native iOS & Android Apps", "Cross-Platform Development", "App Store Deployment", "Updates & Maintenance"]},
+  uiux: {icon:"fa-pen-ruler", title:"UI/UX Design", desc:"Create user-friendly interfaces and engaging experiences that improve usability and customer satisfaction.", included:["User Research & Wireframes", "UI Design Systems", "Interactive Prototypes", "Usability Testing"]},
+  support: {icon:"fa-headset", title:"Maintenance & Support", desc:"From managed IT services to staff augmentation, we provide reliable support and skilled resources to scale your operations.", included:["24/7 Monitoring & Support", "Managed IT Services", "Staff Augmentation", "Updates & Backups"]},
+  ai: {icon:"fa-brain", title:"AI & Machine Learning", desc:"Leverage the latest technologies to stay ahead of the curve, including innovative solutions that future-proof your business.", included:["AI Chatbots & Assistants", "Machine Learning Models", "Process Automation", "Predictive Analytics"]}
 };
 function openServiceModal(key) {
   const d = serviceData[key];
@@ -1070,6 +1107,15 @@ function openServiceModal(key) {
   document.getElementById('svcIcon').innerHTML = '<i class="fa-solid ' + d.icon + '"></i>';
   document.getElementById('svcTitle').innerText = d.title;
   document.getElementById('svcDesc').innerText = d.desc;
+  const incBox = document.getElementById('svcIncluded');
+  incBox.innerHTML = '';
+  (d.included || []).forEach(t => {
+    const el = document.createElement('div');
+    el.className = 'svc-inc';
+    el.innerHTML = '<i class="fa-solid fa-circle-check"></i><span></span>';
+    el.querySelector('span').textContent = t;
+    incBox.appendChild(el);
+  });
   document.getElementById('serviceModal').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -1106,6 +1152,30 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService
   let speed = AUTO, targetSpeed = AUTO;
   let dragging = false, dragX = 0, dragS = 0, vel = 0, lastPX = 0, dragDist = 0;
   let hovering = false, inView = true, arrowAnim = null;
+  // ===== live caption: front product name + category + 07/10 (centered) =====
+  const capName = document.getElementById('carCapName'), capCat = document.getElementById('carCapCat'),
+        capIdx = document.getElementById('carCapIdx'), capFill = document.getElementById('carCapFill'),
+        capTotal = document.getElementById('carCapTotal');
+  let capCur = -1;
+  function updateCap(){
+    let bi = 0, bv = 1e9;
+    for (let i = 0; i < N; i++){ const a = Math.abs(cards[i]._t || 0); if (a < bv){ bv = a; bi = i; } }
+    if (bi === capCur) return;
+    capCur = bi;
+    const tEl = cards[bi].querySelector('.prod-title span');
+    const gEl = cards[bi].querySelector('.prod-tag');
+    const nm = tEl ? tEl.textContent.trim() : '';
+    const cat = gEl ? gEl.textContent.trim().toUpperCase() : '';
+    capName.classList.add('car-cap-fade'); capCat.classList.add('car-cap-fade');
+    setTimeout(() => {
+      capName.textContent = nm;
+      capCat.textContent = cat;
+      capIdx.textContent = String(bi + 1).padStart(2, '0');
+      capTotal.textContent = '/ ' + String(N).padStart(2, '0');
+      capFill.style.width = ((bi + 1) / N * 100).toFixed(1) + '%';
+      capName.classList.remove('car-cap-fade'); capCat.classList.remove('car-cap-fade');
+    }, 140);
+  }
 
   function measure(){
     CW = stage.clientWidth < 640 ? 300 : 400;
@@ -1149,6 +1219,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService
       c.style.pointerEvents = vis > .35 ? 'auto' : 'none';
       c._t = t;
     }
+    updateCap();
   }
   // drag (window-level move/up so no pointer capture is needed; card clicks stay native)
   function onDragMove(e){
@@ -1292,6 +1363,38 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService
       if(dm<180){cx.strokeStyle='rgba(185,218,255,'+(.42*(1-dm/180))+')';cx.beginPath();cx.moveTo(p.x,p.yy);cx.lineTo(mx,my);cx.stroke()}}
     for(let i=B.length-1;i>=0;i--){const b=B[i];b.x+=b.vx;b.y+=b.vy;b.vx*=.95;b.vy*=.95;b.l-=.025;if(b.l<=0){B.splice(i,1);continue}
       cx.fillStyle='rgba(160,205,255,'+b.l+')';cx.beginPath();cx.arc(b.x,b.y,2.2*b.l+.4,0,6.283);cx.fill()}})();
+})();
+// ===== ENGINE ORBIT CHIPS (DATA/EDGE/SECURE/AI CORE/CLOUD) =====
+(function(){
+  const orbit = document.querySelector('.tech-orbit');
+  if (!orbit) return;
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const rings = [
+    { chips: Array.from(orbit.querySelectorAll('.eng-chip[data-ring="outer"]')), ring: orbit.querySelector('.orbit-2'), speed: 0.25, ang: 0 },
+    { chips: Array.from(orbit.querySelectorAll('.eng-chip[data-ring="inner"]')), ring: orbit.querySelector('.orbit-1'), speed: -0.34, ang: 0 }
+  ];
+  rings.forEach(rg => rg.chips.forEach((c, i) => { c._a0 = (i / rg.chips.length) * Math.PI * 2; }));
+  function place(){
+    rings.forEach(rg => {
+      if (!rg.ring) return;
+      const R = rg.ring.offsetWidth / 2;
+      rg.chips.forEach(c => {
+        const a = c._a0 + rg.ang;
+        c.style.transform = 'translate(' + (Math.cos(a) * R).toFixed(1) + 'px,' + (Math.sin(a) * R).toFixed(1) + 'px) translate(-50%,-50%)';
+      });
+    });
+  }
+  let last = performance.now();
+  function tick(ts){
+    const dt = Math.min(0.05, (ts - last) / 1000);
+    last = ts;
+    if (!RM && !document.hidden) rings.forEach(rg => { rg.ang += rg.speed * dt; });
+    place();
+    requestAnimationFrame(tick);
+  }
+  addEventListener('resize', place);
+  place();
+  requestAnimationFrame(tick);
 })();
 </script>
 </body>
