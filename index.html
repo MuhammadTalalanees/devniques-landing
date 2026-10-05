@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devniques – Smart Technology Solutions</title>
+<meta name="description" content="We deliver innovative digital, cloud, and software solutions designed to streamline operations, enhance customer experiences, and accelerate business growth.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="logo-dark.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  --bg:#0a1633; --bg-deep:#071026; --ink:#ffffff; --muted:#b9c8e4;
+  --line:rgba(140,180,255,.16); --line-soft:rgba(140,180,255,.10);
+  --blue:#2f7ff7; --blue-dark:#0d55c4; --cyan:#00f0ff;
+  --card:rgba(255,255,255,.028);
+  --radius:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+/* ===== NAV ===== */
+.nav{position:sticky;top:0;z-index:100;background:rgba(8,18,46,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .25s,box-shadow .25s}
+.nav.scrolled{border-bottom-color:var(--line);box-shadow:0 4px 24px rgba(0,0,0,.35)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px;position:relative}
+.brand img{height:36px;width:auto}
+.nav-links{display:flex;align-items:center;gap:30px;list-style:none;position:absolute;left:50%;transform:translateX(-50%);margin:0;padding:0;white-space:nowrap}
+.nav-cta{margin-left:auto;flex-shrink:0}
+.nav-cta-li.mob{display:none}
+.nav-links a{font-size:14.5px;font-weight:500;color:#c9d8f5;transition:color .2s;padding:6px 0;border-bottom:2px solid transparent}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:#fff;border-bottom-color:var(--blue)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;font-weight:600;font-size:15px;padding:12px 26px;border-radius:999px;border:none;cursor:pointer;transition:transform .2s,background .2s,box-shadow .2s;box-shadow:0 8px 20px rgba(20,110,245,.25)}
+.btn:hover{background:var(--blue-dark);transform:translateY(-2px)}
+.btn-sm{padding:10px 22px;font-size:14px}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.28);box-shadow:none}
+.btn-outline:hover{border-color:var(--blue);background:rgba(47,127,247,.14);color:#fff}
+.burger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+/* ===== HERO ===== */
+.hero{position:relative;text-align:center;padding:120px 24px 100px;background:radial-gradient(ellipse 70% 55% at 50% 0%,rgba(47,127,247,.14),transparent 70%)}
+.hero-inner{position:relative;max-width:840px;margin:0 auto}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:2.5px;color:var(--cyan);text-transform:uppercase;margin-bottom:24px;padding:9px 20px;border-radius:999px;background:rgba(0,240,255,.05);border:1px solid rgba(0,240,255,.28)}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);flex-shrink:0}
+.hero h1{font-family:'Inter',sans-serif;font-size:clamp(42px,6vw,72px);font-weight:800;letter-spacing:-.035em;line-height:1.05;margin-bottom:24px}
+.hero h1 .accent{color:var(--blue)}
+.hero p.sub{font-size:clamp(16px,2vw,18.5px);color:var(--muted);max-width:680px;margin:0 auto 38px;line-height:1.65}
+.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+/* ===== SECTIONS ===== */
+section{padding:96px 0}
+.sec-head{text-align:center;max-width:720px;margin:0 auto 56px}
+.sec-head h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,3.8vw,42px);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin:16px 0}
+.sec-head p{color:var(--muted);font-size:17px;line-height:1.65}
+/* ===== REVEAL (scroll only) ===== */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease}
+.rv.in{opacity:1;transform:none}
+/* ===== PRODUCT GRID ===== */
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.p-card{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.p-card:hover{transform:translateY(-5px);border-color:rgba(140,180,255,.35);box-shadow:0 18px 44px rgba(0,0,0,.4)}
+.prod-visual{position:relative;aspect-ratio:16/10;background:#0e1e42;overflow:hidden}
+.prod-visual video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
+.prod-visual video.playing{opacity:1}
+.pv-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;transition:opacity .35s}
+.p-card:hover .pv-poster{opacity:0}
+.prod-visual::after{content:"";position:absolute;right:14px;bottom:12px;width:38px;height:38px;border-radius:50%;z-index:2;background:rgba(10,22,51,.7) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 6.5v11l9-5.5z'/%3E%3C/svg%3E") 58% 50%/16px no-repeat;border:1.5px solid rgba(255,255,255,.5);transition:opacity .3s,transform .3s;pointer-events:none;opacity:0}
+.p-card:hover .prod-visual::after{opacity:1}
+@media(hover:none){.prod-visual::after{display:none}.p-card:hover .pv-poster{opacity:1}}
+.prod-tag{position:absolute;left:14px;top:14px;z-index:2;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#d8e7ff;background:rgba(8,18,46,.78);border:1px solid var(--line);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px)}
+.prod-body{padding:24px 24px 22px}
+.prod-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.prod-title span{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.prod-title i{font-size:15px;color:var(--cyan);flex-shrink:0}
+.prod-desc{color:var(--muted);font-size:14.5px;line-height:1.6;margin-bottom:16px;min-height:69px}
+.prod-specs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.spec-chip{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:#cfe0fb;background:rgba(47,127,247,.1);border:1px solid rgba(47,127,247,.28);padding:6px 12px;border-radius:999px}
+.spec-chip i{font-size:10px;color:var(--cyan)}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line-soft);padding-top:16px}
+.view-details-btn{display:inline-flex;align-items:center;gap:8px;color:var(--cyan);font-weight:600;font-size:14px}
+.live-demo-pill{font-size:11.5px;color:#8fa6cf;background:rgba(255,255,255,.05);padding:4px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.1)}
+/* ===== AI AUTOMATION ===== */
+.ai-panel{display:grid;grid-template-columns:1.05fr .95fr;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.02);cursor:pointer;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.ai-panel:hover{transform:translateY(-4px);border-color:rgba(140,180,255,.4);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.ai-left{padding:54px 50px}
+.ai-left h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.4vw,38px);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin:16px 0}
+.ai-left p{color:var(--muted);font-size:16.5px;line-height:1.65;margin-bottom:26px}
+.ai-link{display:inline-flex;align-items:center;gap:10px;color:var(--cyan);font-weight:700;font-size:15px}
+.ai-link i{transition:transform .2s}
+.ai-panel:hover .ai-link i{transform:translateX(5px)}
+.ai-right{border-left:1px solid var(--line);background:rgba(3,8,24,.5);padding:54px 50px;display:flex;flex-direction:column;justify-content:center}
+.ai-cap{display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--line-soft)}
+.ai-cap:last-child{border-bottom:none}
+.ai-cap-icon{width:44px;height:44px;border-radius:12px;background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.3);display:flex;align-items:center;justify-content:center;color:#2dd4bf;font-size:18px;flex-shrink:0}
+.ai-cap span{font-size:16px;font-weight:600;color:#eaf2ff}
+/* ===== SERVICES ===== */
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.service-card{display:block;color:inherit;background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);padding:30px 26px;cursor:pointer;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.service-card:hover{transform:translateY(-5px);border-color:rgba(140,180,255,.35);box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.srv-icon{width:52px;height:52px;border-radius:13px;background:rgba(47,127,247,.12);border:1px solid rgba(47,127,247,.3);display:flex;align-items:center;justify-content:center;color:#6aa5ff;font-size:21px;margin-bottom:20px}
+.srv-title{font-size:18px;font-weight:700;color:#fff;margin-bottom:10px;letter-spacing:-.01em}
+.srv-desc{font-size:14px;color:var(--muted);line-height:1.6}
+.srv-go{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:13.5px;font-weight:700;color:var(--cyan)}
+/* ===== CTA ===== */
+.cta-box{background:rgba(47,127,247,.08);border:1px solid var(--line);border-radius:24px;padding:72px 40px;text-align:center}
+.cta-box h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.2vw,48px);font-weight:700;letter-spacing:-.02em;margin-bottom:16px}
+.cta-box p{font-size:17px;color:var(--muted);max-width:600px;margin:0 auto 34px}
+.cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.m-pri,.m-sec{display:inline-flex;align-items:center;gap:10px;padding:13px 28px;border-radius:999px;font-weight:600;font-size:15px;cursor:pointer;color:#fff;transition:transform .2s,background .2s,box-shadow .2s;border:none}
+.m-pri{background:var(--blue);box-shadow:0 8px 22px rgba(20,110,245,.3)}
+.m-pri:hover{background:var(--blue-dark);transform:translateY(-2px)}
+.m-sec{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2)}
+.m-sec:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px)}
+.m-pri.cta-white{background:#fff;color:#0a1738;box-shadow:0 8px 26px rgba(0,0,0,.25)}
+.m-pri.cta-white:hover{background:#eef4ff;transform:translateY(-2px)}
+/* ===== FOOTER ===== */
+footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 32px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.3fr;gap:40px;margin-bottom:56px}
+.f-brand img{height:38px;width:auto;margin-bottom:18px}
+.f-brand p{color:var(--muted);font-size:14.5px;line-height:1.7;margin-bottom:20px}
+.f-social{display:flex;gap:12px}
+.f-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:var(--cyan);transition:background .2s,color .2s,transform .2s}
+.f-social a:hover{background:var(--cyan);color:#050d24;transform:translateY(-3px)}
+.footer-col h4{color:#fff;font-size:14px;font-weight:700;margin-bottom:20px;letter-spacing:1.5px;text-transform:uppercase}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col ul a{color:var(--muted);font-size:14.5px;transition:color .2s;cursor:pointer}
+.footer-col ul a:hover{color:var(--cyan)}
+.f-contact p{color:var(--muted);font-size:14px;margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;line-height:1.55}
+.f-contact p i{color:var(--cyan);margin-top:4px;flex-shrink:0}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:26px;display:flex;justify-content:space-between;align-items:center;color:#6c84aa;font-size:13.5px;flex-wrap:wrap;gap:14px}
+.fb-links{display:flex;gap:22px;flex-wrap:wrap}
+.fb-links a{color:#6c84aa;transition:color .2s}
+.fb-links a:hover{color:var(--cyan)}
+/* ===== MODALS ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(2,6,20,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.modal-overlay.active{opacity:1;pointer-events:auto}
+.modal-card{background:linear-gradient(145deg,#0a1738,#050d24);border:1px solid rgba(0,240,255,.4);box-shadow:0 0 60px rgba(0,240,255,.22);border-radius:24px;max-width:800px;width:100%;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(16px) scale(.98);transition:transform .3s ease;padding:36px;font-family:'Inter',system-ui,sans-serif}
+.modal-overlay.active .modal-card{transform:none}
+.modal-close-btn{position:absolute;top:22px;right:22px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s,border-color .2s}
+.modal-close-btn:hover{background:rgba(255,50,80,.2);border-color:#ff4757;color:#ff4757}
+.modal-header-badge{display:inline-block;font-size:12px;font-weight:700;padding:5px 14px;border-radius:999px;background:rgba(0,240,255,.12);color:var(--cyan);border:1px solid rgba(0,240,255,.3);margin-bottom:16px;text-transform:uppercase;letter-spacing:1.5px}
+.modal-title{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:#fff;margin-bottom:12px;letter-spacing:-.01em}
+.modal-summary{font-size:15.5px;color:#c0d5f8;line-height:1.7;margin-bottom:26px}
+.modal-features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:30px}
+.m-feat{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:15px 16px;display:flex;align-items:center;gap:12px}
+.m-feat i{font-size:17px;color:var(--cyan);flex-shrink:0}
+.m-feat span{font-size:14px;font-weight:600;color:#e4efff}
+.modal-footer{display:flex;gap:14px;justify-content:flex-end;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);flex-wrap:wrap}
+.modal-svc-icon{width:60px;height:60px;border-radius:15px;background:linear-gradient(135deg,#00f0ff,#2b7fff);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;margin-bottom:18px}
+.modal-feat-head{font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:14px}
+.svc-included{display:grid;grid-template-columns:1fr 1fr;gap:13px 18px;margin-bottom:28px}
+.svc-inc{display:flex;align-items:center;gap:11px;font-size:14px;font-weight:600;color:#e4efff}
+.svc-inc i{color:#2dd4bf;font-size:17px;flex-shrink:0}
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){.prod-grid{grid-template-columns:repeat(2,1fr)}.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.ai-panel{grid-template-columns:1fr}.ai-right{border-left:none;border-top:1px solid var(--line)}.ai-left,.ai-right{padding:40px 30px}}
+@media(max-width:768px){
+  .nav-links{display:none;position:absolute;top:66px;left:0;right:0;transform:none;background:rgba(8,18,46,.97);flex-direction:column;align-items:flex-start;padding:20px 24px 26px;gap:16px;border-bottom:1px solid var(--line)}
+  .nav-links.open{display:flex}
+  .nav-cta{display:none}
+  .nav-cta-li.mob{display:list-item;width:100%}
+  .nav-cta-li .btn{width:100%;justify-content:center}
+  .burger{display:block}
+  section{padding:72px 0}
+  .hero{padding:88px 20px 72px}
+  .prod-grid{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .modal-features-grid{grid-template-columns:1fr}
+  .modal-card{padding:26px}
+  .modal-title{font-size:25px}
+  .svc-included{grid-template-columns:1fr}
+  .cta-box{padding:54px 24px}
+}
+@media(max-width:560px){.footer-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column;align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+  *,*::before,*::after{transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body id="top">
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Devniques home"><img src="logo-white.png" alt="Devniques"></a>
+    <button class="burger" id="burger" aria-label="Menu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#top">Home</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#ai-automation">AI Automation</a></li>
+      <li><a href="#offer">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li class="nav-cta-li mob"><a class="btn btn-sm" href="#cta">Get a Quote</a></li>
+    </ul>
+    <a class="btn btn-sm nav-cta" href="#cta">Get a Quote</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow rv">Welcome to Devniques</span>
+    <h1 class="rv">Smart <span class="accent">Technology</span> Solutions</h1>
+    <p class="sub rv">We deliver innovative digital, cloud, and software solutions designed to streamline operations, enhance customer experiences, and accelerate business growth in a rapidly evolving digital world.</p>
+    <div class="hero-cta rv">
+      <a class="btn" href="#cta">Let&rsquo;s Start!</a>
+      <a class="btn btn-outline" href="#products">Discover More</a>
+    </div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="wrap sec-head">
+    <span class="eyebrow rv">Product Showcase</span>
+    <h2 class="rv">Our Products</h2>
+    <p class="rv">Powerful products and platforms built to solve real business challenges &mdash; ready to deploy, easy to scale, and designed around your workflows.</p>
+  </div>
+  <div class="wrap">
+    <div class="prod-grid">
+      <article class="p-card rv" data-key="BuzzFlow">
+        <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/buzzflow-poster.jpg" src="videos/buzzflo.mp4"></video>
+          <img class="pv-poster" src="videos/buzzflow-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Enterprise SaaS</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title"><span>BuzzFlow</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          <p class="prod-desc">Unified workspace platform integrating real-time team chat, tasks, multi-stage projects, pipeline CRM, and automated finance tracking.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>CRM &amp; Tasks</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Real-time Chat</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Finance</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card rv" data-key="PostMarrow">
+        <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/postmarrow-poster.jpg" src="videos/postmarrow.mp4"></video>
+          <img class="pv-poster" src="videos/postmarrow-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Cybersecurity</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title"><span>Post Marrow</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          <p class="prod-desc">Military-grade business email defense infrastructure featuring zero-day phishing protection, AI spam filtering, and automated encryption vaults.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Zero-Day Shield</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>End-to-End Vault</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>99.99% Filter</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card rv" data-key="Signvero">
+        <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/signvero-poster.jpg" src="videos/signvero.mp4"></video>
+          <img class="pv-poster" src="videos/signvero-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Digital Media</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title"><span>Signvero</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          <p class="prod-desc">Cloud-based digital signage network and emergency broadcasting system. Schedule targeted video content across thousands of global screens.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Multi-screen Sync</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Instant Broadcast</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Cloud Playlists</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card rv" data-key="Mobilient">
+        <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/mobilient-poster.jpg" src="videos/mobilient.mp4"></video>
+          <img class="pv-poster" src="videos/mobilient-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Device Control</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title"><span>Mobilient MDM</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          <p class="prod-desc">Enterprise Mobility Management to remotely monitor, lock, update, and secure your company's smartphones, tablets, POS terminals, and laptops.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Remote Lock/Wipe</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Kiosk Policy</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>App Distribution</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card rv" data-key="ShipFlow">
+        <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/shipflow-poster.jpg" src="videos/shipflow.mp4"></video>
+          <img class="pv-poster" src="videos/shipflow-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Supply Chain</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title"><span>Ship Flow</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          <p class="prod-desc">End-to-end Freight Forwarding &amp; Cargo Logistics suite with GPS container tracking, manifest automation, customs compliance, and client billing.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>GPS Tracking</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Automated Manifest</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Customs Portal</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card rv" data-key="TrackOnMoves">
+        <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/trackonmoves-poster.jpg" src="videos/trackonmoves.mp4"></video>
+          <img class="pv-poster" src="videos/trackonmoves-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Telematics &amp; Fleet</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title"><span>TrackOnMoves</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          <p class="prod-desc">Smart vehicle tracking and driver analytics platform. Real-time geofencing, fuel monitoring, engine diagnostics, and automated route optimization.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Live Geofence</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Fuel Diagnostics</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Driver Score</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card rv" data-key="Itmenaan">
+        <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/itmenaan-poster.jpg" src="videos/itmenaan.mp4"></video>
+          <img class="pv-poster" src="videos/itmenaan-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Marketplace</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title"><span>Itmenaan</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          <p class="prod-desc">Pakistan&rsquo;s trusted buy &amp; sell marketplace connecting buyers and sellers across Pakistan.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Buy &amp; Sell</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Listings</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Secure Deals</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card rv" data-key="Hospital">
+        <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/hospital-poster.jpg" src="videos/hospital.mp4"></video>
+          <img class="pv-poster" src="videos/hospital-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Healthcare OS</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title"><span>Hospital Management</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          <p class="prod-desc">Centralized health operations engine supporting 8+ distinct user roles (Doctors, Nurses, Pharmacy, Lab, Billing) across 60+ modular hospital workflows.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>8+ User Portals</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>60+ Modules</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>OPD/IPD</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card rv" data-key="Microsoft365">
+        <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/m365-poster.jpg" src="videos/m365.mp4"></video>
+          <img class="pv-poster" src="videos/m365-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Productivity Cloud</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title"><span>Microsoft 365</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          <p class="prod-desc">Powerful apps, AI-powered Copilot assistance, and trusted cloud storage to boost productivity.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Office Apps</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Copilot AI</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Cloud Storage</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+      <article class="p-card rv" data-key="ERPCRM">
+        <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/erpcrm-poster.jpg" src="videos/erpcrm.mp4"></video>
+          <img class="pv-poster" src="videos/erpcrm-poster.jpg" alt="" loading="lazy" draggable="false">
+          <span class="prod-tag">Core Enterprise</span>
+        </div>
+        <div class="prod-body">
+          <div class="prod-title"><span>ERP &amp; CRM Architecture</span><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+          <p class="prod-desc">Custom enterprise resource planning solution connecting multi-warehouse inventory, procurement, human capital, automated taxation, and client relations.</p>
+          <div class="prod-specs">
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Inventory Sync</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Automated Payroll</div>
+            <div class="spec-chip"><i class="fa-solid fa-check"></i>Sales Forecasts</div>
+          </div>
+          <div class="card-bottom">
+            <span class="view-details-btn">View Detailed Specs <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="live-demo-pill">Click to Open</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="ai-automation">
+  <div class="wrap">
+    <div class="ai-panel rv" onclick="openServiceModal('ai')" role="button" tabindex="0" aria-label="AI and Machine Learning services">
+      <div class="ai-left">
+        <span class="eyebrow">AI Automation</span>
+        <h2>AI &amp; Machine Learning</h2>
+        <p>Leverage the latest technologies to stay ahead of the curve, including innovative solutions that future-proof your business.</p>
+        <span class="ai-link">Learn more <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+      <div class="ai-right">
+        <div class="ai-cap"><div class="ai-cap-icon"><i class="fa-solid fa-robot"></i></div><span>AI Chatbots &amp; Assistants</span></div>
+        <div class="ai-cap"><div class="ai-cap-icon"><i class="fa-solid fa-brain"></i></div><span>Machine Learning Models</span></div>
+        <div class="ai-cap"><div class="ai-cap-icon"><i class="fa-solid fa-gears"></i></div><span>Process Automation</span></div>
+        <div class="ai-cap"><div class="ai-cap-icon"><i class="fa-solid fa-chart-line"></i></div><span>Predictive Analytics</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="offer">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow rv">What We Offer</span><h2 class="rv">Driving Digital Growth with Smart Technology Solutions</h2><p class="rv">We develop tailored software solutions that address complex business challenges and streamline operations.</p></div>
+    <div class="services-grid">
+      <div class="service-card rv" data-svc="software" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-code"></i></div><h3 class="srv-title">Custom Software Solutions</h3><p class="srv-desc">We develop tailored software solutions that address complex business challenges and streamline operations.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="webdev" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-globe"></i></div><h3 class="srv-title">Website Development</h3><p class="srv-desc">Custom web development solutions engineered for performance, scalability, and business growth.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="marketing" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-bullhorn"></i></div><h3 class="srv-title">Digital Marketing</h3><p class="srv-desc">Drive traffic, increase visibility, and grow your brand with result-driven digital marketing and SEO strategies tailored to your business.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="ecommerce" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-cart-shopping"></i></div><h3 class="srv-title">E-Commerce Solutions</h3><p class="srv-desc">Create secure and user-friendly online stores that enhance customer experience and increase conversions.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="mobileapp" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-mobile-screen"></i></div><h3 class="srv-title">Mobile App Development</h3><p class="srv-desc">We create powerful native and cross-platform mobile applications that deliver seamless user experiences.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="uiux" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-pen-ruler"></i></div><h3 class="srv-title">UI/UX Design</h3><p class="srv-desc">Create user-friendly interfaces and engaging experiences that improve usability and customer satisfaction.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="support" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-headset"></i></div><h3 class="srv-title">Maintenance &amp; Support</h3><p class="srv-desc">From managed IT services to staff augmentation, we provide reliable support and skilled resources to scale your operations.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <div class="service-card rv" data-svc="ai" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-brain"></i></div><h3 class="srv-title">AI &amp; Machine Learning</h3><p class="srv-desc">Leverage the latest technologies to stay ahead of the curve, including innovative solutions that future-proof your business.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="wrap">
+    <div class="cta-box rv">
+      <h2>Let&rsquo;s Collaborate Together</h2>
+      <p>We are always ready to help you at any time, let&rsquo;s talk together.</p>
+      <div class="cta-actions">
+        <a class="m-pri cta-white" href="https://devniques.com/contact-us/"><span>Get a Quote</span><i class="fa-solid fa-arrow-right"></i></a>
+        <a class="m-sec" href="mailto:info@devniques.com"><span>Email Our Engineers</span><i class="fa-regular fa-envelope"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <img src="logo-white.png" alt="Devniques">
+        <p>Smart Technology Solutions &mdash; innovative digital, cloud, and software solutions for a rapidly evolving digital world.</p>
+        <div class="f-social">
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="openProductModal('BuzzFlow')">BuzzFlow Suite</a></li>
+          <li><a href="javascript:void(0)" onclick="openProductModal('Hospital')">Hospital Management</a></li>
+          <li><a href="javascript:void(0)" onclick="openProductModal('ShipFlow')">Ship Flow Logistics</a></li>
+          <li><a href="javascript:void(0)" onclick="openProductModal('TrackOnMoves')">TrackOnMoves Fleet</a></li>
+          <li><a href="javascript:void(0)" onclick="openProductModal('PostMarrow')">Post Marrow Email</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="https://devniques.com/software-solutions/">Custom Software</a></li>
+          <li><a href="https://devniques.com/web-development/">Website Development</a></li>
+          <li><a href="https://devniques.com/digital-marketing-and-seo-services/">Digital Marketing</a></li>
+          <li><a href="https://devniques.com/microsoft-365/">Microsoft 365</a></li>
+          <li><a href="https://devniques.com/erp-crm/">ERP &amp; CRM Systems</a></li>
+        </ul>
+      </div>
+      <div class="footer-col f-contact">
+        <h4>HQ &amp; Contact</h4>
+        <p><i class="fa-solid fa-location-dot"></i> Office No. 904, 9th Floor, Dulara Business Center, Khalid Bin Waleed Road, Karachi</p>
+        <p><i class="fa-solid fa-phone"></i> 021-36275379</p>
+        <p><i class="fa-solid fa-envelope"></i> info@devniques.com</p>
+        <p><i class="fa-solid fa-clock"></i> Mon &ndash; Sat : 9:00 AM &ndash; 6:00 PM</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Devniques Technology Solutions. All Rights Reserved.</div>
+      <div class="fb-links">
+        <a href="#top">Home</a>
+        <a href="#products">Products</a>
+        <a href="https://devniques.com/blog/">Blog</a>
+        <a href="https://devniques.com/contact-us/">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Interactive Product Detail Modal (Opens when ANY product is clicked!) -->
+<div class="modal-overlay" id="productModal" onclick="closeModalOnOuterClick(event)">
+  <div class="modal-card">
+    <button class="modal-close-btn" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
+    <span class="modal-header-badge" id="modalBadge">SaaS Solution</span>
+    <h3 class="modal-title" id="modalTitle">Product Name</h3>
+    <p class="modal-summary" id="modalSummary">Full architectural and functional details of the product.</p>
+    <h4 style="color:#fff;font-size:16px;margin-bottom:14px;letter-spacing:1px;text-transform:uppercase;">Included Capabilities &amp; Modules</h4>
+    <div class="modal-features-grid" id="modalFeatures">
+      <!-- Populated via JS -->
+    </div>
+    <div class="modal-footer">
+      <button class="m-sec" onclick="closeProductModal()">Close Preview</button>
+      <button class="m-pri" onclick="requestProductQuote()">
+        <span>Deploy This Product</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Interactive Service Detail Modal (opens when a What We Offer service is clicked) -->
+<div class="modal-overlay" id="serviceModal" onclick="closeServiceModalOnOuterClick(event)">
+  <div class="modal-card">
+    <button class="modal-close-btn" onclick="closeServiceModal()"><i class="fa-solid fa-xmark"></i></button>
+    <span class="modal-header-badge">Our Service</span>
+    <div class="modal-svc-icon" id="svcIcon"><i class="fa-solid fa-code"></i></div>
+    <h3 class="modal-title" id="svcTitle">Service Name</h3>
+    <p class="modal-summary" id="svcDesc">Service description.</p>
+    <div class="modal-feat-head">What&rsquo;s Included</div>
+    <div class="svc-included" id="svcIncluded"></div>
+    <div class="modal-footer">
+      <button class="m-sec" onclick="closeServiceModal()">Close</button>
+      <button class="m-pri" onclick="requestServiceQuote()">
+        <span>Request This Service</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Sticky nav border on scroll
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 8), {passive:true});
+// Mobile menu
+const burger = document.getElementById('burger'), navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+// Minimal scrollspy (active nav link)
+const spyLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+const spy = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) spyLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+}), {rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('section[id]').forEach(x => spy.observe(x));
+// Scroll reveals (fade-up only)
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.12});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+// Product Details Data Store for Dynamic Modal Click
+const productData = {
+  BuzzFlow: {
+    badge: "All-In-One Enterprise Platform",
+    title: "BuzzFlow Business OS",
+    summary: "BuzzFlow is Devniques' flagship digital workplace architecture. It merges instant departmental messaging, Kanban and Gantt project management, client pipeline CRM, and automated bookkeeping into a singular dashboard.",
+    features: [
+      { icon: "fa-comments", text: "Encrypted Departmental Team Chat & Channels" },
+      { icon: "fa-list-check", text: "Milestone Tracking & Sprint Task Boards" },
+      { icon: "fa-address-book", text: "Full Lifecycle Customer Relationship Management (CRM)" },
+      { icon: "fa-file-invoice-dollar", text: "Automated Invoicing, Expenses & Financial Ledgers" },
+      { icon: "fa-bell", text: "Real-time Webhook & Mobile Push Notifications" },
+      { icon: "fa-lock", text: "Role-Based Permissions & Enterprise Audit Logs" }
+    ]
+  },
+  Hospital: {
+    badge: "Comprehensive Healthcare Ecosystem",
+    title: "Hospital Management System (HMS)",
+    summary: "An enterprise-grade hospital automation system trusted by healthcare providers. Built to coordinate over 8 distinct medical user groups and 60+ specialty modules with zero downtime.",
+    features: [
+      { icon: "fa-user-doctor", text: "Doctors OPD Queue & Digital Prescription Portal" },
+      { icon: "fa-bed-pulse", text: "IPD Bed Allocation, Vitals & Nurse Station Monitoring" },
+      { icon: "fa-pills", text: "Automated Pharmacy Inventory & Batch Expiry Warnings" },
+      { icon: "fa-flask-vial", text: "Pathology Lab Testing & Barcode Sample Reports" },
+      { icon: "fa-receipt", text: "Insurance TPA Claim Handling & Multi-counter Billing" },
+      { icon: "fa-shield-halved", text: "HIPAA Compliant Electronic Medical Records (EMR)" }
+    ]
+  },
+  ShipFlow: {
+    badge: "Maritime & Freight Management",
+    title: "Ship Flow Logistics OS",
+    summary: "A cloud shipping and freight forwarding software engineered for international container lines, clearing agents, and air/sea transport consolidators.",
+    features: [
+      { icon: "fa-earth-americas", text: "Real-time Live Vessel & Container GPS Telematics" },
+      { icon: "fa-file-lines", text: "Automated Bill of Lading (BL) & Manifest Generator" },
+      { icon: "fa-scale-balanced", text: "Customs Duty Calculator & Clearance Workflow" },
+      { icon: "fa-warehouse", text: "Bonded CFS Warehouse Cargo Inventory Management" },
+      { icon: "fa-dollar-sign", text: "Multi-currency Demurrage & Freight Rate Sheets" },
+      { icon: "fa-mobile-retro", text: "Consignee Self-Service Tracking Portal" }
+    ]
+  },
+  TrackOnMoves: {
+    badge: "Fleet Telematics Platform",
+    title: "TrackOnMoves GPS & Fleet Management",
+    summary: "Precision fleet telematics engine offering complete visibility over heavy vehicle fleets, commercial delivery vans, route optimizations, and driver safety standards.",
+    features: [
+      { icon: "fa-satellite", text: "High-Frequency Sub-Second Live GPS Vehicle Tracking" },
+      { icon: "fa-gas-pump", text: "Ultrasonic Fuel Sensor & Theft Siphon Alerts" },
+      { icon: "fa-route", text: "Smart Multi-Stop Route Optimization & Geofencing" },
+      { icon: "fa-id-card", text: "Driver Behavior Scoring (Harsh Braking / Speeding)" },
+      { icon: "fa-wrench", text: "Automated Preventive Maintenance & Tire Log" },
+      { icon: "fa-power-off", text: "Remote Engine Immobilization Via Mobile App" }
+    ]
+  },
+  PostMarrow: {
+    badge: "Cybersecurity & Email Protection",
+    title: "Post Marrow Business Security Suite",
+    summary: "Hardened email infrastructure engineered to block spear-phishing, business email compromise (BEC), and malware payloads before they ever reach company mailboxes.",
+    features: [
+      { icon: "fa-shield-virus", text: "AI-Powered Zero-Day Phishing & Malware Scanners" },
+      { icon: "fa-key", text: "Automated PGP / S-MIME Email Vault Encryption" },
+      { icon: "fa-envelope-open-text", text: "DMARC, DKIM & SPF Automated Alignment Engine" },
+      { icon: "fa-server", text: "High-Availability 99.999% Redundant MX Mail Gateways" },
+      { icon: "fa-database", text: "Compliant 7-Year Immutable Email Archiving" },
+      { icon: "fa-user-lock", text: "Adaptive 2FA & Suspicious Login Geolocation Lockout" }
+    ]
+  },
+  Mobilient: {
+    badge: "Device Fleet Security",
+    title: "Mobilient Mobile Device Management (MDM)",
+    summary: "Centralized control console for provisioning, monitoring, and locking corporate Android, iOS, Windows, and rugged handheld warehouse devices.",
+    features: [
+      { icon: "fa-tablet-screen-button", text: "Zero-Touch Corporate Device Enrollment & Kiosk Mode" },
+      { icon: "fa-ban", text: "Remote Wipe & Stolen Asset Lockdown Command" },
+      { icon: "fa-cloud-arrow-down", text: "Enterprise Private App Catalog Distribution" },
+      { icon: "fa-network-wired", text: "Automated Corporate VPN & Wi-Fi Certificate Push" },
+      { icon: "fa-camera-retro", text: "Hardware Policy Enforcement (Camera/USB Disabling)" },
+      { icon: "fa-chart-line", text: "OS Version Compliance & Patch Management" }
+    ]
+  },
+  Signvero: {
+    badge: "Digital Display Network",
+    title: "Signvero Cloud Signage",
+    summary: "Manage commercial display screens, interactive touch kiosks, digital menu boards, and factory alert displays from any web browser.",
+    features: [
+      { icon: "fa-display", text: "Central Cloud Media Scheduler for 4K Video/Graphics" },
+      { icon: "fa-triangle-exclamation", text: "Instant Emergency Alert Override Broadcasting" },
+      { icon: "fa-layer-group", text: "Multi-Zone Layouts (Weather, News, Live Tickers)" },
+      { icon: "fa-wifi", text: "Offline Caching & Automatic Sync Recovery" },
+      { icon: "fa-rotate", text: "Supports Android TV, Raspberry Pi, Windows & LG WebOS" },
+      { icon: "fa-chart-pie", text: "Screen Uptime & Proof-of-Play Audit Analytics" }
+    ]
+  },
+  ERPCRM: {
+    badge: "Core Enterprise Engine",
+    title: "Unified ERP & CRM Architecture",
+    summary: "Tailor-made Enterprise Resource Planning that connects supply chain, human capital, point-of-sale, and multi-tier finance into a cohesive real-time ledger.",
+    features: [
+      { icon: "fa-boxes-stacked", text: "Multi-Warehouse Automated Inventory Reordering" },
+      { icon: "fa-users-gear", text: "Human Resources, Biometric Attendance & Payroll" },
+      { icon: "fa-handshake", text: "Sales Pipeline Forecasting & Quotation Engine" },
+      { icon: "fa-calculator", text: "Multi-currency Tax, Audit & General Ledger Accounting" },
+      { icon: "fa-link", text: "RESTful API Integration with Banks & Custom Portals" },
+      { icon: "fa-shield", text: "Granular Departmental Access Control & History Auditing" }
+    ]
+  },
+  Itmenaan: {
+    badge: "Online Marketplace",
+    title: "Itmenaan Buy & Sell Marketplace",
+    summary: "Pakistan's trusted buy & sell marketplace — a modern online platform that connects buyers and sellers across Pakistan with simple listings and safe deals.",
+    features: [
+      { icon: "fa-tags", text: "Quick Ad Posting with Photos & Categories" },
+      { icon: "fa-magnifying-glass", text: "Smart Search & Filters by City and Price" },
+      { icon: "fa-comments", text: "Direct Buyer–Seller Messaging" },
+      { icon: "fa-shield-halved", text: "Verified Profiles & Safer Transactions" },
+      { icon: "fa-mobile-screen", text: "Fast, Mobile-friendly Browsing Experience" },
+      { icon: "fa-chart-line", text: "Seller Dashboard with Listing Insights" }
+    ]
+  },
+  Microsoft365: {
+    badge: "Productivity & Cloud",
+    title: "Microsoft 365 for Business",
+    summary: "Boost productivity with Microsoft 365 — powerful apps, AI-powered Copilot assistance, and trusted cloud storage, set up and supported by Devniques.",
+    features: [
+      { icon: "fa-file-word", text: "Word, Excel, PowerPoint & Outlook Apps" },
+      { icon: "fa-wand-magic-sparkles", text: "AI-powered Copilot Assistance" },
+      { icon: "fa-cloud", text: "Secure Cloud Storage with OneDrive" },
+      { icon: "fa-video", text: "Teams Meetings, Chat & Collaboration" },
+      { icon: "fa-envelope", text: "Professional Business Email" },
+      { icon: "fa-lock", text: "Enterprise-grade Security & Compliance" }
+    ]
+  }
+};
+
+// Modal Open Function
+function openProductModal(key) {
+  const data = productData[key] || productData.BuzzFlow;
+  document.getElementById('modalBadge').innerText = data.badge;
+  document.getElementById('modalTitle').innerText = data.title;
+  document.getElementById('modalSummary').innerText = data.summary;
+  const featContainer = document.getElementById('modalFeatures');
+  featContainer.innerHTML = '';
+  data.features.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'm-feat';
+    div.innerHTML = `<i class="fa-solid ${f.icon}"></i><span>${f.text}</span>`;
+    featContainer.appendChild(div);
+  });
+
+  const modal = document.getElementById('productModal');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProductModal() {
+  const modal = document.getElementById('productModal');
+  modal.classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+function closeModalOnOuterClick(e) {
+  if (e.target.id === 'productModal') {
+    closeProductModal();
+  }
+}
+
+function requestProductQuote() {
+  const title = document.getElementById('modalTitle').innerText;
+  closeProductModal();
+  const cta = document.getElementById('cta');
+  cta.scrollIntoView({ behavior: 'smooth' });
+}
+
+function openContactModal() {
+  openProductModal('BuzzFlow');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProductModal()});
+
+// ===== Service modal (What We Offer cards) =====
+const serviceData = {
+  software: {icon:"fa-code", title:"Custom Software Solutions", desc:"We develop tailored software solutions that address complex business challenges and streamline operations.", included:["Discovery & Solution Architecture", "Agile Development Sprints", "QA, Testing & Hardening", "Deployment & DevOps Pipelines"]},
+  webdev: {icon:"fa-globe", title:"Website Development", desc:"Custom web development solutions engineered for performance, scalability, and business growth.", included:["Custom Design & Development", "Performance Optimization", "Scalable Architecture", "SEO-Ready Build"]},
+  marketing: {icon:"fa-bullhorn", title:"Digital Marketing", desc:"Drive traffic, increase visibility, and grow your brand with result-driven digital marketing and SEO strategies tailored to your business.", included:["SEO & Content Strategy", "Social Media Marketing", "Paid Ad Campaigns (PPC)", "Analytics & Reporting"]},
+  ecommerce: {icon:"fa-cart-shopping", title:"E-Commerce Solutions", desc:"Create secure and user-friendly online stores that enhance customer experience and increase conversions.", included:["Online Store Setup", "Secure Payment Gateways", "Product & Inventory Management", "Conversion Optimization"]},
+  mobileapp: {icon:"fa-mobile-screen", title:"Mobile App Development", desc:"We create powerful native and cross-platform mobile applications that deliver seamless user experiences.", included:["Native iOS & Android Apps", "Cross-Platform Development", "App Store Deployment", "Updates & Maintenance"]},
+  uiux: {icon:"fa-pen-ruler", title:"UI/UX Design", desc:"Create user-friendly interfaces and engaging experiences that improve usability and customer satisfaction.", included:["User Research & Wireframes", "UI Design Systems", "Interactive Prototypes", "Usability Testing"]},
+  support: {icon:"fa-headset", title:"Maintenance & Support", desc:"From managed IT services to staff augmentation, we provide reliable support and skilled resources to scale your operations.", included:["24/7 Monitoring & Support", "Managed IT Services", "Staff Augmentation", "Updates & Backups"]},
+  ai: {icon:"fa-brain", title:"AI & Machine Learning", desc:"Leverage the latest technologies to stay ahead of the curve, including innovative solutions that future-proof your business.", included:["AI Chatbots & Assistants", "Machine Learning Models", "Process Automation", "Predictive Analytics"]}
+};
+function openServiceModal(key) {
+  const d = serviceData[key];
+  if (!d) return;
+  document.getElementById('svcIcon').innerHTML = '<i class="fa-solid ' + d.icon + '"></i>';
+  document.getElementById('svcTitle').innerText = d.title;
+  document.getElementById('svcDesc').innerText = d.desc;
+  const incBox = document.getElementById('svcIncluded');
+  incBox.innerHTML = '';
+  (d.included || []).forEach(t => {
+    const el = document.createElement('div');
+    el.className = 'svc-inc';
+    el.innerHTML = '<i class="fa-solid fa-circle-check"></i><span></span>';
+    el.querySelector('span').textContent = t;
+    incBox.appendChild(el);
+  });
+  document.getElementById('serviceModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeServiceModal() {
+  document.getElementById('serviceModal').classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+function closeServiceModalOnOuterClick(e) {
+  if (e.target.id === 'serviceModal') closeServiceModal();
+}
+function requestServiceQuote() {
+  closeServiceModal();
+  document.getElementById('cta').scrollIntoView({behavior:'smooth'});
+}
+document.querySelectorAll('.service-card[data-svc]').forEach(c => {
+  c.addEventListener('click', () => openServiceModal(c.dataset.svc));
+  c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openServiceModal(c.dataset.svc); } });
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeServiceModal(); });
+
+// AI Automation panel: keyboard access + opens the AI service modal
+const aiPanel = document.querySelector('.ai-panel');
+if (aiPanel) {
+  aiPanel.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openServiceModal('ai'); }
+  });
+}
+
+// Product cards: click opens modal; video hover-play (desktop) / tap-toggle (touch)
+const hoverFine = matchMedia('(hover:hover)').matches;
+document.querySelectorAll('.p-card').forEach(card => {
+  const v = card.querySelector('video');
+  if (v) {
+    v.addEventListener('playing', () => v.classList.add('playing'));
+    v.addEventListener('pause', () => v.classList.remove('playing'));
+    if (hoverFine) {
+      card.addEventListener('pointerenter', () => v.play().catch(()=>{}));
+      card.addEventListener('pointerleave', () => v.pause());
+    } else {
+      card.querySelector('.prod-visual').addEventListener('click', e => {
+        e.stopPropagation();
+        if (v.paused) v.play().catch(()=>{}); else v.pause();
+      });
+    }
+  }
+  card.addEventListener('click', () => openProductModal(card.dataset.key));
+});
+// Pause product videos when scrolled out of view
+if ('IntersectionObserver' in window) {
+  const vio = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) { const v = e.target.querySelector('video'); if (v && !v.paused) v.pause(); }
+  }), {threshold:.05});
+  document.querySelectorAll('.p-card').forEach(c => vio.observe(c));
+}
+</script>
+</body>
+</html>
