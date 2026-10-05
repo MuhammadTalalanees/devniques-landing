@@ -291,7 +291,11 @@ body{background:#04070e!important;color:#f2f6fd}
 .ln-nav-cta{margin-left:auto;flex-shrink:0}
 .ln-nav .burger{display:none;background:none;border:none;cursor:pointer;padding:8px;margin-left:auto}
 .grad{background:linear-gradient(115deg,#9dc0ff 0%,#2f7ff7 55%,#1e5fe0 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.ln-aihero{position:relative;padding:170px 0 40px;overflow:hidden;text-align:center}
+.ln-aihero{position:relative;padding:200px 0 180px;overflow:hidden;text-align:center}
+.ai-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.ai-bg video{position:absolute;inset:-45px;width:calc(100% + 90px);height:calc(100% + 90px);object-fit:cover;opacity:.4;filter:blur(7px) saturate(1.15)}
+.ai-bg-shade{position:absolute;inset:0;background:radial-gradient(ellipse 75% 65% at 50% 42%,rgba(5,12,32,.15),rgba(5,12,32,.82) 78%),linear-gradient(180deg,rgba(5,12,32,.72),rgba(5,12,32,.30) 42%,rgba(5,12,32,.92))}
+.ln-aihero .wrap{position:relative;z-index:1}
 .ln-aihero::before{content:"";position:absolute;inset:0;background:radial-gradient(58% 42% at 50% 0%,rgba(47,127,247,.17),transparent 70%);pointer-events:none}
 .ln-aihero .wrap{position:relative;z-index:1}
 .ln-aihero h1{font-size:clamp(42px,6.4vw,80px);line-height:1.04;letter-spacing:-.034em;font-weight:700;margin:26px 0 0;color:#f4f7fc}
@@ -335,16 +339,14 @@ body{background:#04070e!important;color:#f2f6fd}
 </header>
 
 <section class="ln-aihero">
+  <div class="ai-bg" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata" src="videos/ai-hero.mp4"></video>
+    <div class="ai-bg-shade"></div>
+  </div>
   <div class="wrap">
     <span class="eyebrow" data-hero style="--hd:0">AI Automation</span>
     <h1 data-hero style="--hd:1">AI &amp; <span class="grad">Machine Learning</span></h1>
     <p data-hero style="--hd:2">Leverage the latest technologies to stay ahead of the curve, including innovative solutions that future-proof your business.</p>
-    <div class="ln-vidshot" data-hero style="--hd:3">
-      <div class="ln-shot-glow" aria-hidden="true"></div>
-      <div class="ln-vidframe">
-        <video autoplay muted loop playsinline preload="metadata" src="videos/ai-hero.mp4" aria-label="Devniques AI automation showcase"></video>
-      </div>
-    </div>
   </div>
 </section>
 <section id="capabilities">
