@@ -204,8 +204,71 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
   *,*::before,*::after{transition-duration:.01ms!important}
 }
 </style>
+<style>
+/* ===== MOTION SYSTEM (Linear-style) ===== */
+:root{
+  --ease-out-expo:cubic-bezier(.16,1,.3,1);
+  --ease-out-quart:cubic-bezier(.25,1,.5,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+}
+/* --- premium loader (restored) --- */
+#loader{position:fixed;inset:0;z-index:10000;background:#050c20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:clip-path .9s cubic-bezier(.76,0,.24,1)}
+#loader.out{clip-path:inset(0 0 100% 0);pointer-events:none}
+#loader.gone{display:none}
+#loader img{height:54px;animation:ldPulse 1.6s ease-in-out infinite}
+@keyframes ldPulse{50%{transform:scale(1.07)}}
+.ld-bar{width:220px;height:3px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
+.ld-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),#9cc4ff);animation:ldFill 1.35s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes ldFill{to{width:100%}}
+#loader small{color:#8fa6cf;font-size:12px;letter-spacing:4px;text-transform:uppercase}
+body:not(.loaded){overflow:hidden!important}
+#sprog{position:fixed;top:0;left:0;height:2px;width:0;background:var(--blue);z-index:9999}
+/* --- hero entrance (gated on body.loaded) --- */
+[data-hero]{opacity:0;transform:translateY(26px)}
+body.loaded [data-hero]{opacity:1;transform:none;transition:opacity .75s var(--ease-out-expo),transform .75s var(--ease-out-expo);transition-delay:calc(var(--hd,0)*110ms)}
+.hero h1 .w,.ai-hero h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.1em;margin-bottom:-.1em}
+.hero h1 .wi,.ai-hero h1 .wi{display:inline-block;transform:translateY(115%);transition:transform .85s var(--ease-out-expo);transition-delay:calc(150ms + var(--wi,0)*50ms)}
+body.loaded .hero h1 .wi,body.loaded .ai-hero h1 .wi{transform:none}
+/* --- upgraded scroll reveals + stagger --- */
+.rv{transition:opacity .7s var(--ease-out-expo),transform .7s var(--ease-out-expo);transition-delay:calc(var(--i,0)*70ms)}
+/* --- nav: hide on scroll-down + link underline --- */
+.nav{transition:border-color .25s,box-shadow .2s,transform .35s var(--ease-out-quart)}
+.nav-hidden{transform:translateY(-100%)}
+.nav-links a{position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease-out-quart)}
+.nav-links a:hover::after{transform:scaleX(1)}
+/* --- button physics + sheen --- */
+.btn,.m-pri,.m-sec{transition:transform .18s var(--ease-spring),background .2s,box-shadow .25s,border-color .2s,color .2s}
+.btn:active,.m-pri:active,.m-sec:active{transform:scale(.96)}
+.btn{position:relative;overflow:hidden}
+.btn:not(.btn-outline)::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.22) 50%,transparent 70%);transform:translateX(-130%);transition:transform .65s var(--ease-out-quart);pointer-events:none}
+.btn:not(.btn-outline):hover::before{transform:translateX(130%)}
+/* --- service card hover micro-interaction --- */
+.srv-icon{transition:transform .35s var(--ease-spring)}
+.service-card:hover .srv-icon{transform:scale(1.12) rotate(6deg)}
+.srv-go i{transition:transform .25s var(--ease-out-quart)}
+.service-card:hover .srv-go i{transform:translateX(5px)}
+/* --- carousel arrow press --- */
+.car-btn{transition:border-color .2s,color .2s,transform .18s var(--ease-spring)}
+.car-btn:active{transform:scale(.88)}
+/* --- modal open/close --- */
+.modal-card{transition:transform .38s var(--ease-out-expo),opacity .3s ease}
+.modal-overlay.is-closing{opacity:0;transition:opacity .18s ease}
+.modal-overlay.is-closing .modal-card{transform:translateY(14px) scale(.95);opacity:0}
+/* --- AI panel parallax bg --- */
+.ai-panel{position:relative}
+.ai-panel-bg{position:absolute;inset:-12% 0;background:radial-gradient(55% 60% at 50% 30%,rgba(47,127,247,.10),transparent 70%);pointer-events:none}
+.ai-left,.ai-right{position:relative;z-index:1}
+/* --- magnetic CTA --- */
+.cta-box .m-pri{transition:transform .18s ease-out,background .2s,box-shadow .25s}
+@media(prefers-reduced-motion:reduce){#loader{display:none!important}}
+</style>
 </head>
 <body id="top">
+<div id="loader"><img src="logo-white.png" alt="Devniques"><div class="ld-bar"><i></i></div><small>Smart Technology Solutions</small></div>
+<div id="sprog"></div>
+<noscript><style>#loader,#sprog{display:none!important}body{overflow:auto!important}</style></noscript>
+
 
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
@@ -227,10 +290,10 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
 
 <section class="hero">
   <div class="hero-inner">
-    <span class="eyebrow rv">Welcome to Devniques</span>
-    <h1 class="rv">Smart <span class="accent">Technology</span> Solutions</h1>
-    <p class="sub rv">We deliver innovative digital, cloud, and software solutions designed to streamline operations, enhance customer experiences, and accelerate business growth in a rapidly evolving digital world.</p>
-    <div class="hero-cta rv">
+    <span class="eyebrow" data-hero style="--hd:0">Welcome to Devniques</span>
+    <h1>Smart <span class="accent">Technology</span> Solutions</h1>
+    <p class="sub" data-hero style="--hd:1">We deliver innovative digital, cloud, and software solutions designed to streamline operations, enhance customer experiences, and accelerate business growth in a rapidly evolving digital world.</p>
+    <div class="hero-cta" data-hero style="--hd:2">
       <a class="btn" href="#cta">Let&rsquo;s Start!</a>
       <a class="btn btn-outline" href="#products">Discover More</a>
     </div>
@@ -455,6 +518,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
 <section id="ai-automation">
   <div class="wrap">
     <a class="ai-panel rv" href="ai-automation.html" aria-label="AI and Machine Learning services">
+      <div class="ai-panel-bg"></div>
       <div class="ai-left">
         <span class="eyebrow">AI Automation</span>
         <h2>AI &amp; Machine Learning</h2>
@@ -767,8 +831,13 @@ function openProductModal(key) {
 
 function closeProductModal() {
   const modal = document.getElementById('productModal');
-  modal.classList.remove('active');
-  document.body.style.overflow = 'auto';
+  if (!modal.classList.contains('active')) return;
+  modal.classList.add('is-closing');
+  setTimeout(() => {
+    modal.classList.remove('active');
+    modal.classList.remove('is-closing');
+    document.body.style.overflow = 'auto';
+  }, 190);
 }
 
 function closeModalOnOuterClick(e) {
@@ -819,8 +888,14 @@ function openServiceModal(key) {
   document.body.style.overflow = 'hidden';
 }
 function closeServiceModal() {
-  document.getElementById('serviceModal').classList.remove('active');
-  document.body.style.overflow = 'auto';
+  const modal = document.getElementById('serviceModal');
+  if (!modal.classList.contains('active')) return;
+  modal.classList.add('is-closing');
+  setTimeout(() => {
+    modal.classList.remove('active');
+    modal.classList.remove('is-closing');
+    document.body.style.overflow = 'auto';
+  }, 190);
 }
 function closeServiceModalOnOuterClick(e) {
   if (e.target.id === 'serviceModal') closeServiceModal();
@@ -979,6 +1054,84 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService
   addEventListener('resize', () => { measure(); layout(); });
   measure(); layout();
   requestAnimationFrame(ts => { frame._l = ts; requestAnimationFrame(frame); });
+})();
+
+// ===== MOTION: loader -> body.loaded =====
+(function(){
+  const ld=document.getElementById('loader');
+  if(!ld){document.body.classList.add('loaded');return;}
+  const t0=performance.now();let done=false;
+  function finish(){
+    if(done)return;done=true;
+    ld.classList.add('out');
+    document.body.classList.add('loaded');
+    setTimeout(()=>ld.classList.add('gone'),950);
+  }
+  function go(){setTimeout(finish,Math.max(0,1400-(performance.now()-t0)));}
+  if(document.readyState==='complete')go();
+  else{addEventListener('load',go);setTimeout(go,3500);}
+})();
+// ===== MOTION: hero headline word-mask split =====
+document.querySelectorAll('.hero h1, .ai-hero h1').forEach(h1=>{
+  let wi=0;
+  h1.innerHTML=Array.from(h1.childNodes).map(n=>{
+    const cls=n.nodeType===1&&n.className?' '+n.className:'';
+    return n.textContent.split(/(\s+)/).map(t=>{
+      if(!t||/^\s*$/.test(t))return t;
+      return '<span class="w"><span class="wi'+cls+'" style="--wi:'+(wi++)+'">'+t+'</span></span>';
+    }).join('');
+  }).join('');
+});
+// ===== MOTION: stagger children of grids =====
+document.querySelectorAll('.services-grid,.footer-grid,.cap-grid').forEach(g=>{
+  [...g.children].forEach((c,i)=>{c.classList.add('rv');c.style.setProperty('--i',i%4);});
+});
+// ===== MOTION: nav hide on scroll down =====
+(function(){
+  const nav=document.getElementById('nav');
+  const links=document.getElementById('navLinks');
+  let lastY=scrollY,ticking=false;
+  function onS(){
+    const y=scrollY;
+    nav.classList.toggle('nav-hidden',y>lastY&&y>140&&!(links&&links.classList.contains('open')));
+    lastY=y;ticking=false;
+  }
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(onS);}},{passive:true});
+})();
+// ===== MOTION: scroll progress bar =====
+(function(){
+  const sp=document.getElementById('sprog');if(!sp)return;
+  addEventListener('scroll',()=>{
+    const h=document.documentElement;
+    const p=h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight);
+    sp.style.width=(p*100)+'%';
+  },{passive:true});
+})();
+// ===== MOTION: magnetic CTA button =====
+if(matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('.cta-box .m-pri').forEach(btn=>{
+    btn.addEventListener('mousemove',e=>{
+      const r=btn.getBoundingClientRect();
+      const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+      btn.style.transform='translate('+(x*.18).toFixed(1)+'px,'+(y*.28).toFixed(1)+'px)';
+    });
+    btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
+  });
+}
+// ===== MOTION: AI panel subtle parallax =====
+(function(){
+  const panel=document.querySelector('.ai-panel'),bg=panel&&panel.querySelector('.ai-panel-bg');
+  if(!panel||!bg)return;let tick=false;
+  function up(){
+    tick=false;
+    const r=panel.getBoundingClientRect(),vh=innerHeight;
+    if(r.top<vh&&r.bottom>0){
+      const p=(vh-r.top)/(vh+r.height);
+      bg.style.transform='translateY('+((p-.5)*28).toFixed(1)+'px)';
+    }
+  }
+  addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(up);}},{passive:true});
+  up();
 })();
 </script>
 </body>
