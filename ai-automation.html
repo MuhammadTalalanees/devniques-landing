@@ -277,6 +277,40 @@ body.loaded .hero h1 .wi,body.loaded .ai-hero h1 .wi{transform:none}
 .cta-box .m-pri{transition:transform .18s ease-out,background .2s,box-shadow .25s}
 @media(prefers-reduced-motion:reduce){#loader{display:none!important}}
 </style>
+<style>
+/* ================= LINEAR REBUILD (AI page) ================= */
+body{background:#04070e!important;color:#f2f6fd}
+.ln-nav{position:fixed;top:0;left:0;right:0;z-index:200;border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+.ln-nav.scrolled{background:rgba(4,7,14,.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom-color:rgba(148,184,255,.1)}
+.ln-nav-inner{display:flex;align-items:center;height:68px;position:relative}
+.ln-nav .brand img{height:34px;width:auto;display:block}
+.ln-links{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:34px;list-style:none;margin:0;padding:0;white-space:nowrap}
+.ln-links a{color:#a9b6d3;font-size:14.5px;font-weight:500;transition:color .2s}
+.ln-links a:hover{color:#fff}
+.ln-links a.on{color:#fff}
+.ln-nav-cta{margin-left:auto;flex-shrink:0}
+.ln-nav .burger{display:none;background:none;border:none;cursor:pointer;padding:8px;margin-left:auto}
+.grad{background:linear-gradient(115deg,#9dc0ff 0%,#2f7ff7 55%,#1e5fe0 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ln-aihero{position:relative;padding:170px 0 40px;overflow:hidden;text-align:center}
+.ln-aihero::before{content:"";position:absolute;inset:0;background:radial-gradient(58% 42% at 50% 0%,rgba(47,127,247,.17),transparent 70%);pointer-events:none}
+.ln-aihero .wrap{position:relative;z-index:1}
+.ln-aihero h1{font-size:clamp(42px,6.4vw,80px);line-height:1.04;letter-spacing:-.034em;font-weight:700;margin:26px 0 0;color:#f4f7fc}
+.ln-aihero p{color:#8b98b8;font-size:clamp(16px,2vw,19px);line-height:1.65;max-width:700px;margin:24px auto 0}
+.ln-vidshot{position:relative;max-width:980px;margin:64px auto 0}
+.ln-shot-glow{position:absolute;inset:-60px -30px;background:radial-gradient(52% 55% at 50% 42%,rgba(47,127,247,.32),transparent 72%);pointer-events:none}
+.ln-vidframe{position:relative;border:1px solid rgba(148,184,255,.18);border-radius:18px;overflow:hidden;background:#060c18;box-shadow:0 50px 140px rgba(0,0,0,.65)}
+.ln-vidframe video{width:100%;height:auto;display:block;aspect-ratio:16/9;object-fit:cover}
+@media(max-width:900px){
+.ln-nav .burger{display:block}
+.ln-links{position:fixed;top:68px;left:12px;right:12px;transform:none;flex-direction:column;gap:0;background:#0a1428;border:1px solid rgba(148,184,255,.16);border-radius:14px;padding:10px;display:none;box-shadow:0 30px 60px rgba(0,0,0,.5);z-index:300}
+.ln-links.open{display:flex}
+.ln-links li a{display:block;padding:13px 16px;font-size:15.5px}
+.ln-nav-cta{display:none}
+.ln-aihero{padding-top:140px}
+}
+@media(prefers-reduced-motion:reduce){.ln-vidframe video{animation:none}}
+
+</style>
 </head>
 <body id="top">
 <div id="loader"><img src="logo-white.png" alt="Devniques"><div class="ld-bar"><i></i></div><small>Smart Technology Solutions</small></div>
@@ -284,30 +318,35 @@ body.loaded .hero h1 .wi,body.loaded .ai-hero h1 .wi{transform:none}
 <noscript><style>#loader,#sprog{display:none!important}body{overflow:auto!important}</style></noscript>
 
 
-<header class="nav" id="nav">
-  <div class="wrap nav-inner">
+<header class="ln-nav" id="nav">
+  <div class="wrap ln-nav-inner">
     <a class="brand" href="index.html" aria-label="Devniques home"><img src="logo-white.png" alt="Devniques"></a>
     <button class="burger" id="burger" aria-label="Menu">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
+    <ul class="ln-links" id="navLinks">
       <li><a href="index.html#products">Products</a></li>
-      <li><a href="ai-automation.html" class="active">AI Automation</a></li>
+      <li><a href="ai-automation.html" class="on">AI Automation</a></li>
       <li><a href="index.html#offer">Services</a></li>
       <li><a href="index.html#contact">Contact</a></li>
-      <li class="nav-cta-li mob"><a class="btn btn-sm" href="index.html#cta">Get a Quote</a></li>
     </ul>
-    <a class="btn btn-sm nav-cta" href="index.html#cta">Get a Quote</a>
+    <a class="btn btn-sm ln-nav-cta" href="index.html#cta">Get a Quote</a>
   </div>
 </header>
 
-<section class="ai-hero">
-  <span class="eyebrow" data-hero style="--hd:0">AI Automation</span>
-  <h1>AI &amp; Machine Learning</h1>
-  <p data-hero style="--hd:1">Leverage the latest technologies to stay ahead of the curve, including innovative solutions that future-proof your business.</p>
+<section class="ln-aihero">
+  <div class="wrap">
+    <span class="eyebrow" data-hero style="--hd:0">AI Automation</span>
+    <h1 data-hero style="--hd:1">AI &amp; <span class="grad">Machine Learning</span></h1>
+    <p data-hero style="--hd:2">Leverage the latest technologies to stay ahead of the curve, including innovative solutions that future-proof your business.</p>
+    <div class="ln-vidshot" data-hero style="--hd:3">
+      <div class="ln-shot-glow" aria-hidden="true"></div>
+      <div class="ln-vidframe">
+        <video autoplay muted loop playsinline preload="metadata" src="videos/ai-hero.mp4" aria-label="Devniques AI automation showcase"></video>
+      </div>
+    </div>
+  </div>
 </section>
-
 <section id="capabilities">
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow rv">Capabilities</span><h2 class="rv">What We Automate</h2><p class="rv">Practical AI, built for real business workflows.</p></div>
