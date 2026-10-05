@@ -59,32 +59,54 @@ section{padding:96px 0}
 /* ===== REVEAL (scroll only) ===== */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease}
 .rv.in{opacity:1;transform:none}
-/* ===== PRODUCT GRID ===== */
-.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.p-card{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
-.p-card:hover{transform:translateY(-5px);border-color:rgba(140,180,255,.35);box-shadow:0 18px 44px rgba(0,0,0,.4)}
+/* ===== PRODUCT RIVER (sliding carousel) ===== */
+.drag-hint{display:flex;align-items:center;justify-content:center;gap:10px;color:#8fa6cf;font-size:13px;font-weight:600;letter-spacing:1.5px;margin:-20px 0 22px;text-transform:uppercase}
+.drag-hint svg{animation:nudge 2.2s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(-4px)}50%{transform:translateX(4px)}}
+.stage-3d{position:relative;height:640px;perspective:1500px;overflow:hidden;cursor:grab;touch-action:pan-y}
+.stage-3d.dragging{cursor:grabbing}
+.stage-3d::before,.stage-3d::after{content:"";position:absolute;top:0;bottom:0;width:120px;z-index:5;pointer-events:none}
+.stage-3d::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.stage-3d::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
+.river{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none}
+.p-card{position:absolute;left:50%;top:46%;width:400px;background:var(--card);border:1px solid var(--line-soft);border-radius:var(--radius);overflow:hidden;cursor:pointer;box-shadow:0 18px 50px rgba(0,0,0,.45);user-select:none;-webkit-user-drag:none;will-change:transform,opacity}
+.p-card:hover{border-color:rgba(140,180,255,.35);box-shadow:0 22px 60px rgba(0,0,0,.5)}
 .prod-visual{position:relative;aspect-ratio:16/10;background:#0e1e42;overflow:hidden}
-.prod-visual video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
+.prod-visual video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s;pointer-events:none}
 .prod-visual video.playing{opacity:1}
-.pv-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;transition:opacity .35s}
+.pv-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none;transition:opacity .35s}
 .p-card:hover .pv-poster{opacity:0}
-.prod-visual::after{content:"";position:absolute;right:14px;bottom:12px;width:38px;height:38px;border-radius:50%;z-index:2;background:rgba(10,22,51,.7) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 6.5v11l9-5.5z'/%3E%3C/svg%3E") 58% 50%/16px no-repeat;border:1.5px solid rgba(255,255,255,.5);transition:opacity .3s,transform .3s;pointer-events:none;opacity:0}
+.prod-visual::after{content:"";position:absolute;right:14px;bottom:12px;width:38px;height:38px;border-radius:50%;z-index:2;background:rgba(10,22,51,.7) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 6.5v11l9-5.5z'/%3E%3C/svg%3E") 58% 50%/16px no-repeat;border:1.5px solid rgba(255,255,255,.5);transition:opacity .3s;pointer-events:none;opacity:0}
 .p-card:hover .prod-visual::after{opacity:1}
-@media(hover:none){.prod-visual::after{display:none}.p-card:hover .pv-poster{opacity:1}}
+@media(hover:none){.prod-visual::after{display:none}}
 .prod-tag{position:absolute;left:14px;top:14px;z-index:2;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#d8e7ff;background:rgba(8,18,46,.78);border:1px solid var(--line);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px)}
 .prod-body{padding:24px 24px 22px}
 .prod-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
 .prod-title span{font-size:20px;font-weight:700;letter-spacing:-.02em}
 .prod-title i{font-size:15px;color:var(--cyan);flex-shrink:0}
-.prod-desc{color:var(--muted);font-size:14.5px;line-height:1.6;margin-bottom:16px;min-height:69px}
+.prod-desc{color:var(--muted);font-size:14.5px;line-height:1.6;margin-bottom:16px}
 .prod-specs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
 .spec-chip{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:#cfe0fb;background:rgba(47,127,247,.1);border:1px solid rgba(47,127,247,.28);padding:6px 12px;border-radius:999px}
 .spec-chip i{font-size:10px;color:var(--cyan)}
 .card-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line-soft);padding-top:16px}
 .view-details-btn{display:inline-flex;align-items:center;gap:8px;color:var(--cyan);font-weight:600;font-size:14px}
 .live-demo-pill{font-size:11.5px;color:#8fa6cf;background:rgba(255,255,255,.05);padding:4px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.1)}
+.car-nav{display:flex;gap:12px;justify-content:center;margin-top:8px}
+.car-btn{width:50px;height:50px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s,transform .2s}
+.car-btn:hover{border-color:var(--blue);color:#8fb6ff;transform:translateY(-2px)}
+.car-cap{margin:20px auto 0;max-width:1200px;padding:0 24px;text-align:center}
+.car-cap-top{display:flex;align-items:baseline;justify-content:center;gap:16px;min-height:32px;margin-bottom:10px;flex-wrap:wrap}
+.car-cap-name{font-family:'Space Grotesk',sans-serif;font-size:23px;font-weight:700;letter-spacing:-.5px;color:#fff;transition:opacity .16s ease}
+.car-cap-cat{font-size:12px;font-weight:700;letter-spacing:2.5px;color:var(--cyan);transition:opacity .16s ease}
+.car-cap-fade{opacity:0}
+.car-cap-count{display:flex;align-items:center;justify-content:center;gap:14px}
+.car-cap-idx{font-size:15px;font-weight:800;color:#fff;min-width:26px}
+.car-cap-bar{flex:1;max-width:230px;height:3px;border-radius:3px;background:rgba(255,255,255,.13);overflow:hidden}
+.car-cap-bar i{display:block;height:100%;width:10%;border-radius:3px;background:var(--blue);transition:width .45s ease}
+.car-cap-total{font-size:14px;font-weight:600;color:#8fa6cf}
+@media(max-width:768px){.stage-3d{height:600px}}
 /* ===== AI AUTOMATION ===== */
-.ai-panel{display:grid;grid-template-columns:1.05fr .95fr;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.02);cursor:pointer;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.ai-panel{display:grid;color:inherit;grid-template-columns:1.05fr .95fr;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.02);cursor:pointer;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
 .ai-panel:hover{transform:translateY(-4px);border-color:rgba(140,180,255,.4);box-shadow:0 20px 50px rgba(0,0,0,.4)}
 .ai-left{padding:54px 50px}
 .ai-left h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.4vw,38px);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin:16px 0}
@@ -131,14 +153,14 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
 .footer-col ul a:hover{color:var(--cyan)}
 .f-contact p{color:var(--muted);font-size:14px;margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;line-height:1.55}
 .f-contact p i{color:var(--cyan);margin-top:4px;flex-shrink:0}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:26px;display:flex;justify-content:space-between;align-items:center;color:#6c84aa;font-size:13.5px;flex-wrap:wrap;gap:14px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:26px;display:flex;justify-content:space-between;align-items:center;color:#8ba0c4;font-size:13.5px;flex-wrap:wrap;gap:14px}
 .fb-links{display:flex;gap:22px;flex-wrap:wrap}
-.fb-links a{color:#6c84aa;transition:color .2s}
+.fb-links a{color:#8ba0c4;transition:color .2s}
 .fb-links a:hover{color:var(--cyan)}
 /* ===== MODALS ===== */
 .modal-overlay{position:fixed;inset:0;background:rgba(2,6,20,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s ease}
 .modal-overlay.active{opacity:1;pointer-events:auto}
-.modal-card{background:linear-gradient(145deg,#0a1738,#050d24);border:1px solid rgba(0,240,255,.4);box-shadow:0 0 60px rgba(0,240,255,.22);border-radius:24px;max-width:800px;width:100%;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(16px) scale(.98);transition:transform .3s ease;padding:36px;font-family:'Inter',system-ui,sans-serif}
+.modal-card{background:linear-gradient(145deg,#0a1738,#050d24);border:1px solid var(--line);box-shadow:0 24px 70px rgba(0,0,0,.55);border-radius:24px;max-width:800px;width:100%;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(16px) scale(.98);transition:transform .3s ease;padding:36px;font-family:'Inter',system-ui,sans-serif}
 .modal-overlay.active .modal-card{transform:none}
 .modal-close-btn{position:absolute;top:22px;right:22px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s,border-color .2s}
 .modal-close-btn:hover{background:rgba(255,50,80,.2);border-color:#ff4757;color:#ff4757}
@@ -156,7 +178,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
 .svc-inc{display:flex;align-items:center;gap:11px;font-size:14px;font-weight:600;color:#e4efff}
 .svc-inc i{color:#2dd4bf;font-size:17px;flex-shrink:0}
 /* ===== RESPONSIVE ===== */
-@media(max-width:1024px){.prod-grid{grid-template-columns:repeat(2,1fr)}.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1024px){.services-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:860px){.ai-panel{grid-template-columns:1fr}.ai-right{border-left:none;border-top:1px solid var(--line)}.ai-left,.ai-right{padding:40px 30px}}
 @media(max-width:768px){
   .nav-links{display:none;position:absolute;top:66px;left:0;right:0;transform:none;background:rgba(8,18,46,.97);flex-direction:column;align-items:flex-start;padding:20px 24px 26px;gap:16px;border-bottom:1px solid var(--line)}
@@ -167,7 +189,6 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
   .burger{display:block}
   section{padding:72px 0}
   .hero{padding:88px 20px 72px}
-  .prod-grid{grid-template-columns:1fr}
   .services-grid{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr 1fr}
   .modal-features-grid{grid-template-columns:1fr}
@@ -195,7 +216,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
     <ul class="nav-links" id="navLinks">
       <li><a href="#top">Home</a></li>
       <li><a href="#products">Products</a></li>
-      <li><a href="#ai-automation">AI Automation</a></li>
+      <li><a href="ai-automation.html">AI Automation</a></li>
       <li><a href="#offer">Services</a></li>
       <li><a href="#contact">Contact</a></li>
       <li class="nav-cta-li mob"><a class="btn btn-sm" href="#cta">Get a Quote</a></li>
@@ -222,9 +243,18 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
     <h2 class="rv">Our Products</h2>
     <p class="rv">Powerful products and platforms built to solve real business challenges &mdash; ready to deploy, easy to scale, and designed around your workflows.</p>
   </div>
-  <div class="wrap">
-    <div class="prod-grid">
-      <article class="p-card rv" data-key="BuzzFlow">
+  <div class="drag-hint rv">
+    <svg width="26" height="14" viewBox="0 0 26 14" fill="none" stroke="#8fa6cf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 7h24M18 1l6 6-6 6"/></svg>
+    Drag to explore
+    <svg width="26" height="14" viewBox="0 0 26 14" fill="none" stroke="#8fa6cf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1)"><path d="M1 7h24M18 1l6 6-6 6"/></svg>
+  </div>
+  <div class="wrap car-nav rv">
+    <button class="car-btn" id="carPrev" aria-label="Previous products"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+    <button class="car-btn" id="carNext" aria-label="Next products"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+  <div class="stage-3d rv" id="stage3d">
+    <div class="river" id="river">
+      <article class="p-card" data-key="BuzzFlow">
         <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/buzzflow-poster.jpg" src="videos/buzzflo.mp4"></video>
           <img class="pv-poster" src="videos/buzzflow-poster.jpg" alt="" loading="lazy" draggable="false">
           <span class="prod-tag">Enterprise SaaS</span>
@@ -243,7 +273,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
           </div>
         </div>
       </article>
-      <article class="p-card rv" data-key="PostMarrow">
+      <article class="p-card" data-key="PostMarrow">
         <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/postmarrow-poster.jpg" src="videos/postmarrow.mp4"></video>
           <img class="pv-poster" src="videos/postmarrow-poster.jpg" alt="" loading="lazy" draggable="false">
           <span class="prod-tag">Cybersecurity</span>
@@ -262,7 +292,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
           </div>
         </div>
       </article>
-      <article class="p-card rv" data-key="Signvero">
+      <article class="p-card" data-key="Signvero">
         <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/signvero-poster.jpg" src="videos/signvero.mp4"></video>
           <img class="pv-poster" src="videos/signvero-poster.jpg" alt="" loading="lazy" draggable="false">
           <span class="prod-tag">Digital Media</span>
@@ -281,7 +311,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
           </div>
         </div>
       </article>
-      <article class="p-card rv" data-key="Mobilient">
+      <article class="p-card" data-key="Mobilient">
         <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/mobilient-poster.jpg" src="videos/mobilient.mp4"></video>
           <img class="pv-poster" src="videos/mobilient-poster.jpg" alt="" loading="lazy" draggable="false">
           <span class="prod-tag">Device Control</span>
@@ -300,7 +330,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
           </div>
         </div>
       </article>
-      <article class="p-card rv" data-key="ShipFlow">
+      <article class="p-card" data-key="ShipFlow">
         <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/shipflow-poster.jpg" src="videos/shipflow.mp4"></video>
           <img class="pv-poster" src="videos/shipflow-poster.jpg" alt="" loading="lazy" draggable="false">
           <span class="prod-tag">Supply Chain</span>
@@ -319,7 +349,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
           </div>
         </div>
       </article>
-      <article class="p-card rv" data-key="TrackOnMoves">
+      <article class="p-card" data-key="TrackOnMoves">
         <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/trackonmoves-poster.jpg" src="videos/trackonmoves.mp4"></video>
           <img class="pv-poster" src="videos/trackonmoves-poster.jpg" alt="" loading="lazy" draggable="false">
           <span class="prod-tag">Telematics &amp; Fleet</span>
@@ -338,7 +368,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
           </div>
         </div>
       </article>
-      <article class="p-card rv" data-key="Itmenaan">
+      <article class="p-card" data-key="Itmenaan">
         <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/itmenaan-poster.jpg" src="videos/itmenaan.mp4"></video>
           <img class="pv-poster" src="videos/itmenaan-poster.jpg" alt="" loading="lazy" draggable="false">
           <span class="prod-tag">Marketplace</span>
@@ -357,7 +387,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
           </div>
         </div>
       </article>
-      <article class="p-card rv" data-key="Hospital">
+      <article class="p-card" data-key="Hospital">
         <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/hospital-poster.jpg" src="videos/hospital.mp4"></video>
           <img class="pv-poster" src="videos/hospital-poster.jpg" alt="" loading="lazy" draggable="false">
           <span class="prod-tag">Healthcare OS</span>
@@ -376,7 +406,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
           </div>
         </div>
       </article>
-      <article class="p-card rv" data-key="Microsoft365">
+      <article class="p-card" data-key="Microsoft365">
         <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/m365-poster.jpg" src="videos/m365.mp4"></video>
           <img class="pv-poster" src="videos/m365-poster.jpg" alt="" loading="lazy" draggable="false">
           <span class="prod-tag">Productivity Cloud</span>
@@ -395,7 +425,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
           </div>
         </div>
       </article>
-      <article class="p-card rv" data-key="ERPCRM">
+      <article class="p-card" data-key="ERPCRM">
         <div class="prod-visual"><video muted loop playsinline preload="metadata" poster="videos/erpcrm-poster.jpg" src="videos/erpcrm.mp4"></video>
           <img class="pv-poster" src="videos/erpcrm-poster.jpg" alt="" loading="lazy" draggable="false">
           <span class="prod-tag">Core Enterprise</span>
@@ -416,11 +446,15 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
       </article>
     </div>
   </div>
+  <div class="car-cap rv">
+    <div class="car-cap-top"><span class="car-cap-name" id="carCapName"></span><span class="car-cap-cat" id="carCapCat"></span></div>
+    <div class="car-cap-count"><span class="car-cap-idx" id="carCapIdx">01</span><span class="car-cap-bar"><i id="carCapFill"></i></span><span class="car-cap-total" id="carCapTotal">/ 10</span></div>
+  </div>
 </section>
 
 <section id="ai-automation">
   <div class="wrap">
-    <div class="ai-panel rv" onclick="openServiceModal('ai')" role="button" tabindex="0" aria-label="AI and Machine Learning services">
+    <a class="ai-panel rv" href="ai-automation.html" aria-label="AI and Machine Learning services">
       <div class="ai-left">
         <span class="eyebrow">AI Automation</span>
         <h2>AI &amp; Machine Learning</h2>
@@ -433,7 +467,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
         <div class="ai-cap"><div class="ai-cap-icon"><i class="fa-solid fa-gears"></i></div><span>Process Automation</span></div>
         <div class="ai-cap"><div class="ai-cap-icon"><i class="fa-solid fa-chart-line"></i></div><span>Predictive Analytics</span></div>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -448,7 +482,7 @@ footer{border-top:1px solid var(--line-soft);background:#050d24;padding:72px 0 3
       <div class="service-card rv" data-svc="mobileapp" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-mobile-screen"></i></div><h3 class="srv-title">Mobile App Development</h3><p class="srv-desc">We create powerful native and cross-platform mobile applications that deliver seamless user experiences.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
       <div class="service-card rv" data-svc="uiux" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-pen-ruler"></i></div><h3 class="srv-title">UI/UX Design</h3><p class="srv-desc">Create user-friendly interfaces and engaging experiences that improve usability and customer satisfaction.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
       <div class="service-card rv" data-svc="support" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-headset"></i></div><h3 class="srv-title">Maintenance &amp; Support</h3><p class="srv-desc">From managed IT services to staff augmentation, we provide reliable support and skilled resources to scale your operations.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
-      <div class="service-card rv" data-svc="ai" role="button" tabindex="0"><div class="srv-icon"><i class="fa-solid fa-brain"></i></div><h3 class="srv-title">AI &amp; Machine Learning</h3><p class="srv-desc">Leverage the latest technologies to stay ahead of the curve, including innovative solutions that future-proof your business.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></div>
+      <a class="service-card rv" href="ai-automation.html"><div class="srv-icon"><i class="fa-solid fa-brain"></i></div><h3 class="srv-title">AI &amp; Machine Learning</h3><p class="srv-desc">Leverage the latest technologies to stay ahead of the curve, including innovative solutions that future-proof your business.</p><span class="srv-go">Learn more <i class="fa-solid fa-arrow-right"></i></span></a>
     </div>
   </div>
 </section>
@@ -801,40 +835,151 @@ document.querySelectorAll('.service-card[data-svc]').forEach(c => {
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeServiceModal(); });
 
-// AI Automation panel: keyboard access + opens the AI service modal
-const aiPanel = document.querySelector('.ai-panel');
-if (aiPanel) {
-  aiPanel.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openServiceModal('ai'); }
+// ===== 3D product river: auto right-to-left + drag + arrows + live caption =====
+(function(){
+  const stage = document.getElementById('stage3d');
+  const river = document.getElementById('river');
+  if (!stage || !river) return;
+  const cards = Array.from(river.querySelectorAll('.p-card'));
+  const prev = document.getElementById('carPrev'), next = document.getElementById('carNext');
+  const N = cards.length;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let CW = 400, GAP = 36;
+  const step = () => CW + GAP;
+  const totalW = () => N * step();
+  let s = 0;
+  const AUTO = reduceMotion ? 0 : (matchMedia('(hover:none)').matches ? 22 : 46);
+  let speed = AUTO, targetSpeed = AUTO;
+  let dragging = false, dragX = 0, dragS = 0, vel = 0, lastPX = 0, dragDist = 0;
+  let inView = true, arrowAnim = null;
+  const capName = document.getElementById('carCapName'), capCat = document.getElementById('carCapCat'),
+        capIdx = document.getElementById('carCapIdx'), capFill = document.getElementById('carCapFill'),
+        capTotal = document.getElementById('carCapTotal');
+  let capCur = -1;
+  function updateCap(){
+    let bi = 0, bv = 1e9;
+    for (let i = 0; i < N; i++){ const a = Math.abs(cards[i]._t || 0); if (a < bv){ bv = a; bi = i; } }
+    if (bi === capCur) return;
+    capCur = bi;
+    const tEl = cards[bi].querySelector('.prod-title span');
+    const gEl = cards[bi].querySelector('.prod-tag');
+    capName.classList.add('car-cap-fade'); capCat.classList.add('car-cap-fade');
+    setTimeout(() => {
+      capName.textContent = tEl ? tEl.textContent.trim() : '';
+      capCat.textContent = gEl ? gEl.textContent.trim().toUpperCase() : '';
+      capIdx.textContent = String(bi + 1).padStart(2, '0');
+      capTotal.textContent = '/ ' + String(N).padStart(2, '0');
+      capFill.style.width = ((bi + 1) / N * 100).toFixed(1) + '%';
+      capName.classList.remove('car-cap-fade'); capCat.classList.remove('car-cap-fade');
+    }, 140);
+  }
+  function measure(){
+    CW = stage.clientWidth < 640 ? 300 : 400;
+    cards.forEach(c => { c.style.width = CW + 'px'; c.style.marginLeft = (-CW/2) + 'px'; });
+    const CH = cards[0].offsetHeight || 480;
+    cards.forEach(c => { c.style.marginTop = (-CH/2) + 'px'; });
+  }
+  function frame(ts){
+    const dt = Math.min(.05, Math.max(0, (ts - frame._l) / 1000));
+    frame._l = ts;
+    if (!inView && !dragging && !arrowAnim){ requestAnimationFrame(frame); return; }
+    if (!dragging && !arrowAnim){
+      speed += (targetSpeed - speed) * Math.min(1, dt * 2.5);
+      s += speed * dt;
+    }
+    if (arrowAnim){
+      const a = arrowAnim;
+      a.t += dt / a.dur;
+      const k = a.t >= 1 ? 1 : 1 - Math.pow(1 - a.t, 3);
+      s = a.from + (a.to - a.from) * k;
+      if (a.t >= 1) arrowAnim = null;
+    }
+    layout();
+    requestAnimationFrame(frame);
+  }
+  function layout(){
+    const TW = totalW(), half = TW / 2;
+    for (let i = 0; i < N; i++){
+      const raw = i * step() - s;
+      const w = ((raw % TW) + TW) % TW;
+      const px = w - half;
+      const t = px / half;
+      const at = Math.abs(t);
+      const vis = Math.max(0, 1 - at * 1.25);
+      const c = cards[i];
+      c.style.transform =
+        'translateX(' + px.toFixed(1) + 'px) translateZ(' + (-at * 430).toFixed(1) + 'px) rotateY(' + (t * 40).toFixed(2) + 'deg)';
+      c.style.opacity = vis.toFixed(3);
+      c.style.zIndex = Math.round(200 - at * 190);
+      c.style.pointerEvents = vis > .35 ? 'auto' : 'none';
+      c._t = t;
+    }
+    updateCap();
+  }
+  function onDragMove(e){
+    if (!dragging) return;
+    const dx = e.clientX - dragX;
+    dragDist = Math.max(dragDist, Math.abs(dx));
+    s = dragS - dx;
+    vel = (lastPX - e.clientX); lastPX = e.clientX;
+    layout();
+  }
+  function onDragEnd(){
+    window.removeEventListener('pointermove', onDragMove);
+    window.removeEventListener('pointerup', onDragEnd);
+    window.removeEventListener('pointercancel', onDragEnd);
+    if (!dragging) return;
+    dragging = false; stage.classList.remove('dragging');
+    s += vel * 6;
+  }
+  stage.addEventListener('pointerdown', e => {
+    dragging = true; stage.classList.add('dragging');
+    dragX = e.clientX; dragS = s; vel = 0; lastPX = e.clientX; dragDist = 0;
+    arrowAnim = null;
+    window.addEventListener('pointermove', onDragMove);
+    window.addEventListener('pointerup', onDragEnd);
+    window.addEventListener('pointercancel', onDragEnd);
   });
-}
-
-// Product cards: click opens modal; video hover-play (desktop) / tap-toggle (touch)
-const hoverFine = matchMedia('(hover:hover)').matches;
-document.querySelectorAll('.p-card').forEach(card => {
-  const v = card.querySelector('video');
-  if (v) {
+  stage.addEventListener('dragstart', e => e.preventDefault());
+  cards.forEach(card => {
+    card.addEventListener('click', e => {
+      if (dragDist > 8) { e.preventDefault(); return; }
+      openProductModal(card.dataset.key);
+    });
+  });
+  stage.addEventListener('mouseenter', () => { targetSpeed = 0; });
+  stage.addEventListener('mouseleave', () => { if (!reduceMotion) targetSpeed = AUTO; });
+  function nudge(dir){
+    if (arrowAnim) return;
+    arrowAnim = {from: s, to: s + dir * step() * 2, t: 0, dur: .55};
+  }
+  if (prev) prev.addEventListener('click', () => nudge(-1));
+  if (next) next.addEventListener('click', () => nudge(1));
+  const vids = cards.map(c => c.querySelector('video'));
+  vids.forEach(v => { if (!v) return;
     v.addEventListener('playing', () => v.classList.add('playing'));
     v.addEventListener('pause', () => v.classList.remove('playing'));
-    if (hoverFine) {
-      card.addEventListener('pointerenter', () => v.play().catch(()=>{}));
-      card.addEventListener('pointerleave', () => v.pause());
-    } else {
-      card.querySelector('.prod-visual').addEventListener('click', e => {
-        e.stopPropagation();
-        if (v.paused) v.play().catch(()=>{}); else v.pause();
-      });
-    }
+  });
+  if (matchMedia('(hover:hover)').matches) {
+    cards.forEach((c, i) => {
+      if (!vids[i]) return;
+      c.addEventListener('pointerenter', () => vids[i].play().catch(()=>{}));
+      c.addEventListener('pointerleave', () => vids[i].pause());
+    });
+  } else {
+    setInterval(() => vids.forEach((v, i) => {
+      if (!v) return;
+      if (Math.abs(cards[i]._t || 0) < .35 && inView && !document.hidden) v.play().catch(()=>{}); else v.pause();
+    }), 500);
   }
-  card.addEventListener('click', () => openProductModal(card.dataset.key));
-});
-// Pause product videos when scrolled out of view
-if ('IntersectionObserver' in window) {
-  const vio = new IntersectionObserver(es => es.forEach(e => {
-    if (!e.isIntersecting) { const v = e.target.querySelector('video'); if (v && !v.paused) v.pause(); }
-  }), {threshold:.05});
-  document.querySelectorAll('.p-card').forEach(c => vio.observe(c));
-}
+  new IntersectionObserver(es => es.forEach(e => {
+    inView = e.isIntersecting;
+    if (!inView) vids.forEach(v => { if (v && !v.paused) v.pause(); });
+  }), {threshold:.05}).observe(stage);
+  addEventListener('resize', () => { measure(); layout(); });
+  measure(); layout();
+  requestAnimationFrame(ts => { frame._l = ts; requestAnimationFrame(frame); });
+})();
 </script>
 </body>
 </html>
